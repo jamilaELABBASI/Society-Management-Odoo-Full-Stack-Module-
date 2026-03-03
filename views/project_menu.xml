@@ -1,0 +1,4 @@
+<odoo>
+    <menuitem id="menu_society" name="Society Management"/>
+    <menuitem id="project_menu" name="Projects" parent="menu_society" action="society_project_action"/>
+</odoo>

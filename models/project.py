@@ -1,6 +1,5 @@
+from datetime import date
 from email.policy import default
-
-from openpyxl.styles.builtins import total
 
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError, UserError
@@ -10,18 +9,30 @@ class Project(models.Model):
     _name = 'society.project'
     _description = 'Project'
     name = fields.Char(string='Name')
+    description = fields.Text(string="Description")
     client_id=fields.Many2one('society.client',string='Client ID')
-    manager_id=fields.Many2one('res.users',string='Manager ID')
+    manager_id=fields.Many2one('res.users',string='Project Manager')
     start_date=fields.Date(string='Start Date')
     end_date=fields.Date(string='End Date')
     state=fields.Selection([
         ("draft","Draft"),
-        ("in_progress","In Progress"),
+        ("progress","In Progress"),
         ("done","Done"),
+        ("cancel","Cancelled"),
     ],string='State',default="draft")
     task_ids=fields.One2many('society.task','project_id',string='Tasks')
+    task_count=fields.Integer(compute="_compute_task_count")
     total_hours=fields.Float(string='Total Hours',compute='_compute_total_hours')
     total_cost=fields.Float(string='Total Cost',compute='_compute_total_cost')
+    priority=fields.Selection([
+        ('0','Low'),
+        ('1','Medium'),
+        ('2','High'),
+    ],default='1')
+    progress=fields.Integer(string="Progress (%)",compute="_compute_progress")
+    is_late=fields.Boolean(compute="_compute_is_late")
+
+
     """
     # compute         Indique que le champ est calculé
     # _compute_total  Méthode qui fait le calcul
@@ -189,12 +200,40 @@ class Project(models.Model):
                 raise UserError("Impossible de supprimer le projet est termine.")
         return super().unlink()
 
+    def _compute_task_count(self):
+        for rec in self:
+            rec.task_count=len(self.task_ids)
+
+
+    @api.depends('state')
+    def _compute_progress(self):
+        for rec in self:
+            if rec.state == 'draft':
+                rec.progress=0
+            elif rec.state == 'progress':
+                rec.progress=50
+            elif rec.state == 'done':
+                rec.progress=100
+            else:
+                rec.progress=0
 
 
 
+    @api.depends('end_date','state')
+    def _compute_is_late(self):
+        today=date.today()
+        for rec in self:
+            if rec.end_date and rec.state != 'done' and rec.end_date<today:
+                rec.is_late=True
+            else:
+                rec.is_late=False
 
-
-
-
-
+    def action_open_form(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'society.project',
+            'view_mode': 'form',
+            'res_id': self.id,
+            'target': 'current',
+        }
 

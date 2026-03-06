@@ -11,3 +11,5 @@ access_client_manager,client.manager,model_society_client,society_management.gro
 access_task_director,task.director,model_society_task,society_management.group_director,1,1,1,1
 access_project_director,project.director,model_society_project,society_management.group_director,1,1,1,1
 access_client_director,client.director,model_society_client,society_management.group_director,1,1,1,1
+
+access_society_task_admin,society.task.admin,model_society_task,base.group_system,1,1,1,1

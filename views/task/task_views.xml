@@ -1,0 +1,37 @@
+<odoo>
+    <record id="task_form" model="ir.ui.view">
+        <field name="name">Task Form</field>
+        <field name="model">society.task</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="assigned_to"/>
+                        <field name="state"/>
+                        <field name="hours_spent"/>
+                        <field name="cost_spent"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="task_list" model="ir.ui.view">
+        <field name="name">Task list</field>
+        <field name="model">society.task</field>
+        <field name="arch" type="xml">
+            <list>
+                  <field name="name"/>
+                        <field name="assigned_to"/>
+                        <field name="state"/>
+                        <field name="hours_spent"/>
+                        <field name="cost_spent"/>
+            </list>
+        </field>
+    </record>
+    <record id="society_task_action" model="ir.actions.act_window">
+        <field name="name">Tasks</field>
+        <field name="res_model">society.task</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

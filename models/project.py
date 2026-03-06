@@ -205,19 +205,13 @@ class Project(models.Model):
             rec.task_count=len(self.task_ids)
 
 
-    @api.depends('state')
     def _compute_progress(self):
-        for rec in self:
-            if rec.state == 'draft':
-                rec.progress=0
-            elif rec.state == 'progress':
-                rec.progress=50
-            elif rec.state == 'done':
-                rec.progress=100
+        for project in self:
+            if project.task_ids:
+                done_tasks = len(project.task_ids.filtered(lambda t: t.state == 'done'))
+                project.progress = (done_tasks / len(project.task_ids)) * 100
             else:
-                rec.progress=0
-
-
+                project.progress = 0
 
     @api.depends('end_date','state')
     def _compute_is_late(self):
@@ -237,3 +231,16 @@ class Project(models.Model):
             'target': 'current',
         }
 
+    """
+        @api.depends('state')
+        def _compute_progress(self):
+            for rec in self:
+                if rec.state == 'draft':
+                    rec.progress=0
+                elif rec.state == 'progress':
+                    rec.progress=50
+                elif rec.state == 'done':
+                    rec.progress=100
+                else:
+                    rec.progress=0
+    """

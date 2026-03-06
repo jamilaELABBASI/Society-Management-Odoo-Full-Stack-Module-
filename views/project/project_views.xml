@@ -1,5 +1,36 @@
 <odoo>
-<!--    <record id="society_project_list" model="ir.ui.view">-->
+    <record id="society_project_form" model="ir.ui.view">
+        <field name="name">society.project.form</field>
+        <field name="model">society.project</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="manager_id"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="state"/>
+                        <field name="total_hours"/>
+                    </group>
+                     <notebook>
+                        <page string="Tasks">
+                            <field name="task_ids"/>
+                        </page>
+                     </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="society_project_action" model="ir.actions.act_window">
+        <field name="name">Projects</field>
+        <field name="res_model">society.project</field>
+        <field name="view_mode">kanban,form</field>
+    </record>
+
+    <!--    <record id="society_project_list" model="ir.ui.view">-->
 <!--        <field name="name">society.project.list</field>-->
 <!--        <field name="model">society.project</field>-->
 <!--        <field name="arch" type="xml">-->
@@ -19,35 +50,4 @@
 <!--            </list>-->
 <!--        </field>-->
 <!--    </record>-->
-
-    <record id="society_project_form" model="ir.ui.view">
-        <field name="name">society.project.form</field>
-        <field name="model">society.project</field>
-        <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <group>
-                        <field name="name"/>
-                        <field name="description"/>
-                        <field name="start_date"/>
-                        <field name="end_date"/>
-                        <field name="state"/>
-                        <field name="total_hours"/>
-                    </group>
-                     <notebook>
-                        <page string="Tasks">
-                            <field name="task_ids"/>
-                        </page>
-                     </notebook>
-                </sheet>
-            </form>
-        </field>
-    </record>
-
-
-    <record id="society_project_action" model="ir.actions.act_window">
-        <field name="name">Projects</field>
-        <field name="res_model">society.project</field>
-        <field name="view_mode">kanban,form</field>
-    </record>
 </odoo>

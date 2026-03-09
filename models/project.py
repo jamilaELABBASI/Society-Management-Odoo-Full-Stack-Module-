@@ -231,6 +231,14 @@ class Project(models.Model):
             'target': 'current',
         }
 
+    def action_view_tasks(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Tasks',
+            'res_model': 'society.task',
+            'view_mode': 'list,form',
+            'domain': [('project_id', '=', self.id)],
+        }
     """
         @api.depends('state')
         def _compute_progress(self):

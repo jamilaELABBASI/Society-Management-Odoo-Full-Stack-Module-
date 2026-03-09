@@ -1,0 +1,50 @@
+.task_card{
+    background:white;
+    border-radius:12px;
+    border:1px solid #e5e5e5;
+    padding:14px;
+    transition:0.3s;
+}
+
+.task_card:hover{
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+    transform:translateY(-3px);
+}
+
+.task_header{
+    font-size:16px;
+    font-weight:600;
+    color:#2c3e50;
+    margin-bottom:6px;
+}
+
+.task_user{
+    font-size:13px;
+    color:#7f8c8d;
+    margin-bottom:10px;
+}
+
+.task_body{
+    display:flex;
+    justify-content:space-between;
+    font-size:14px;
+}
+
+.task_hours{
+    color:#3498db;
+    font-weight:500;
+}
+
+.task_cost{
+    color:#27ae60;
+    font-weight:500;
+}
+
+.task_footer{
+    border-top:1px solid #eee;
+    margin-top:10px;
+    padding-top:6px;
+    font-size:13px;
+    color:#e67e22;
+    font-weight:600;
+}

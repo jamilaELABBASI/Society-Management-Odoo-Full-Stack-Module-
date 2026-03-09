@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+
+        <record id="view_society_task_kanban" model="ir.ui.view">
+            <field name="name">society.task.kanban</field>
+            <field name="model">society.task</field>
+            <field name="arch" type="xml">
+
+                <kanban>
+
+                    <templates>
+
+                        <t t-name="card">
+                            <div class="o_kanban_record">
+
+                                <strong>
+                                    <field name="name"/>
+                                </strong>
+
+                                <div>
+                                    <field name="assigned_to"/>
+                                </div>
+
+                                <div>
+                                    <field name="state"/>
+                                </div>
+
+                            </div>
+                        </t>
+
+                    </templates>
+
+                </kanban>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

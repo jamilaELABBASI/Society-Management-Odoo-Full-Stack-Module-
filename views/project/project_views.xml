@@ -15,10 +15,44 @@
                         <field name="total_hours"/>
                     </group>
                      <notebook>
-                        <page string="Tasks">
-                            <field name="task_ids"/>
-                        </page>
-                     </notebook>
+    <page string="Tasks">
+        <field name="task_ids">
+
+    <kanban>
+
+        <field name="name"/>
+        <field name="assigned_to"/>
+        <field name="state"/>
+
+        <templates>
+
+            <t t-name="card">
+
+                <div class="o_kanban_record">
+
+                    <strong>
+                        <field name="name"/>
+                    </strong>
+
+                    <div>
+                        <field name="assigned_to"/>
+                    </div>
+
+                    <div>
+                        <field name="state"/>
+                    </div>
+
+                </div>
+
+            </t>
+
+        </templates>
+
+    </kanban>
+
+</field>
+    </page>
+</notebook>
                 </sheet>
             </form>
         </field>

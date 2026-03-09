@@ -1,87 +1,76 @@
 <odoo>
-    <record id="society_project_form" model="ir.ui.view">
-        <field name="name">society.project.form</field>
-        <field name="model">society.project</field>
-        <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <group>
-                        <field name="name"/>
-                        <field name="description"/>
-                        <field name="manager_id"/>
-                        <field name="start_date"/>
-                        <field name="end_date"/>
-                        <field name="state"/>
-                        <field name="total_hours"/>
-                    </group>
-                     <notebook>
-    <page string="Tasks">
-        <field name="task_ids">
+    <data>
+        <!-- PROJECT FORM VIEW -->
 
-    <kanban>
+        <record id="view_society_project_form" model="ir.ui.view">
+            <field name="name">society.project.form</field>
+            <field name="model">society.project</field>
+            <field name="arch" type="xml">
+                <form string="Project">
+                    <sheet>
+                        <div class="dashboard_header">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <div class="dashboard_stats">
 
-        <field name="name"/>
-        <field name="assigned_to"/>
-        <field name="state"/>
+                            <div class="stat_card">
+                                <span class="stat_number">12</span>
+                                <span class="stat_label">Tasks</span>
+                            </div>
 
-        <templates>
+                            <div class="stat_card">
+                                <span class="stat_number">5</span>
+                                <span class="stat_label">Done</span>
+                            </div>
 
-            <t t-name="card">
+                            <div class="stat_card">
+                                <span class="stat_number">3</span>
+                                <span class="stat_label">In Progress</span>
+                            </div>
 
-                <div class="o_kanban_record">
+                        </div>
 
-                    <strong>
-                        <field name="name"/>
-                    </strong>
+                        <notebook class="tasks_notebook">
+                            <page string="Tasks">
+                                <field name="task_ids">
+                                    <list>
+                                        <field name="name"/>
+                                        <field name="assigned_to"/>
+                                        <field name="state"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
-                    <div>
-                        <field name="assigned_to"/>
-                    </div>
 
-                    <div>
-                        <field name="state"/>
-                    </div>
+        <!-- PROJECT TREE VIEW -->
 
-                </div>
+        <record id="view_society_project_tree" model="ir.ui.view">
+            <field name="name">society.project.tree</field>
+            <field name="model">society.project</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="client_id"/>
+                    <field name="manager_id"/>
+                </list>
+            </field>
+        </record>
 
-            </t>
 
-        </templates>
+        <!-- PROJECT ACTION -->
 
-    </kanban>
+        <record id="society_project_action" model="ir.actions.act_window">
+            <field name="name">Projects</field>
+            <field name="res_model">society.project</field>
+            <field name="view_mode">kanban,list,form</field>
+        </record>
 
-</field>
-    </page>
-</notebook>
-                </sheet>
-            </form>
-        </field>
-    </record>
-
-    <record id="society_project_action" model="ir.actions.act_window">
-        <field name="name">Projects</field>
-        <field name="res_model">society.project</field>
-        <field name="view_mode">kanban,form</field>
-    </record>
-
-    <!--    <record id="society_project_list" model="ir.ui.view">-->
-<!--        <field name="name">society.project.list</field>-->
-<!--        <field name="model">society.project</field>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <list>-->
-<!--                <field name="name"/>-->
-<!--                <field name="task_count" string="Number of Tasks"/>-->
-<!--                <button name="action_open_form"-->
-<!--                        type="object"-->
-<!--                        string="Edit Project"-->
-<!--                        class="btn-primary"-->
-<!--                />-->
-<!--                <field name="task_ids" widget="one2many_list"/>-->
-
-<!--&lt;!&ndash;                <field name="description"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                <field name="state"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                <field name="total_hours"/>&ndash;&gt;-->
-<!--            </list>-->
-<!--        </field>-->
-<!--    </record>-->
+    </data>
 </odoo>

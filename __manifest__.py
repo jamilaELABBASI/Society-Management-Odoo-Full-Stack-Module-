@@ -20,6 +20,7 @@
     'assets':{
         'web.assets_backend':[
             'society_management/static/src/css/task_kanban.css',
+            'society_management/static/src/css/project_views.css',
         ],
     },
     'application': True,

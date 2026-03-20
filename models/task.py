@@ -22,9 +22,6 @@ class Task(models.Model):
         ('2','High'),
         ('3','Urgent'),
     ])
-
-    hours_spent=fields.Float(string='Hours Spent')
-    cost_spent=fields.Float(string='Cost Spent')
     description=fields.Text(string='Description')
 
 

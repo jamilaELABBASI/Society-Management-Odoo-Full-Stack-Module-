@@ -3,6 +3,7 @@ from email.policy import default
 
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError, UserError
+from odoo.orm.decorators import depends
 
 
 class Project(models.Model):
@@ -29,7 +30,10 @@ class Project(models.Model):
         ('1','Medium'),
         ('2','High'),
     ],default='1')
-    progress=fields.Integer(string="Progress (%)",compute="_compute_progress")
+    bar_draft=fields.Float(string="Draft (%)",compute="_compute_progress")
+    bar_progress=fields.Float(string="Progress (%)",compute="_compute_progress")
+    bar_done=fields.Float(string="Done (%)",compute="_compute_progress")
+    bar_cancelled=fields.Float(string="Cancelled (%)",compute="_compute_progress")
     is_late=fields.Boolean(compute="_compute_is_late")
 
 
@@ -204,14 +208,28 @@ class Project(models.Model):
         for rec in self:
             rec.task_count=len(self.task_ids)
 
-
+    @depends('task_ids.state')
     def _compute_progress(self):
         for project in self:
+            project.bar_draft = 0
+            project.bar_progress = 0
+            project.bar_done = 0
+            project.bar_cancelled = 0
+
             if project.task_ids:
-                done_tasks = len(project.task_ids.filtered(lambda t: t.state == 'done'))
-                project.progress = (done_tasks / len(project.task_ids)) * 100
-            else:
-                project.progress = 0
+                total = len(project.task_ids)
+
+                draft = len(project.task_ids.filtered(lambda t: t.state == 'draft'))
+                progress = len(project.task_ids.filtered(lambda t: t.state == 'progress'))
+                done = len(project.task_ids.filtered(lambda t: t.state == 'done'))
+                cancelled = len(project.task_ids.filtered(lambda t: t.state == 'cancelled'))
+
+                project.bar_draft = (draft / total) * 100
+                project.bar_progress = (progress / total) * 100
+                project.bar_done = (done / total) * 100
+                project.bar_cancelled = (cancelled / total) * 100
+
+
 
     @api.depends('end_date','state')
     def _compute_is_late(self):

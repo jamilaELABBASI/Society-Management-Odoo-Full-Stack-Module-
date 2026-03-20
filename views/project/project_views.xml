@@ -1,75 +1,115 @@
 <odoo>
     <data>
-        <!-- PROJECT FORM VIEW -->
 
-        <record id="view_society_project_form" model="ir.ui.view">
-            <field name="name">society.project.form</field>
+        <!-- FORMULAIRE POUR CRÉER UN PROJET -->
+        <record id="society_project_form_create" model="ir.ui.view">
+            <field name="name">society.project.form.create</field>
             <field name="model">society.project</field>
             <field name="arch" type="xml">
-                <form string="Project">
+                <form string="Create Project">
                     <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="client_id"/>
+                            <field name="manager_id"/>
+                            <field name="state"/>
+                            <field name="priority"/>
+                            <field name="bar_draft"/>
+                            <field name="bar_progress"/>
+                            <field name="bar_done"/>
+                            <field name="bar_cancelled"/>
+                        </group>
                         <div class="dashboard_header">
-                            <h1>
-                                <field name="name"/>
-                            </h1>
+                            <h1>Statics of Tasks</h1>
                         </div>
                         <div class="dashboard_stats">
-
                             <div class="stat_card">
-                                <span class="stat_number">12</span>
-                                <span class="stat_label">Tasks</span>
+                                <i class="fa fa-pencil text-seconsary space-right"></i>
+                                <strong class="space-right">Draft</strong>
+                                <span>12</span>
                             </div>
-
                             <div class="stat_card">
-                                <span class="stat_number">5</span>
-                                <span class="stat_label">Done</span>
+                                <i class="fa fa-spinner fa-spin text-warning space-right"></i>
+                                <strong class="space-right">In Progress</strong>
+                                <span >12</span>
                             </div>
-
                             <div class="stat_card">
-                                <span class="stat_number">3</span>
-                                <span class="stat_label">In Progress</span>
+                                <i class="fa fa-check-circle text-success space-right"></i>
+                                <strong class="space-right">Done</strong>
+                                <span>12</span>
+                            </div>
+                            <div class="stat_card">
+                                <i class="fa fa-times-circle text-danger space-right"></i>
+                                <strong class="space-right">Cancelled</strong>
+                                <span>12</span>
                             </div>
 
                         </div>
-
-                        <notebook class="tasks_notebook">
-                            <page string="Tasks">
-                                <field name="task_ids">
-                                    <list>
-                                        <field name="name"/>
-                                        <field name="assigned_to"/>
-                                        <field name="state"/>
-                                    </list>
-                                </field>
-                            </page>
-                        </notebook>
+                        <div class="dashboard_stats">
+                            <div class="stat_card">
+                                <field name="bar_draft" widget="progressbar"/>
+                            </div>
+                            <div class="stat_card">
+                                <field name="bar_progress" widget="progressbar"/>
+                            </div>
+                            <div class="stat_card">
+                                <field name="bar_done" widget="progressbar"/>
+                            </div>
+                            <div class="stat_card">
+                                <field name="bar_cancelled" widget="progressbar"/>
+                            </div>
+                        </div>
                     </sheet>
+                    <notebook>
+                        <page string="Tasks">
+                            <field name="task_ids">
+                            <kanban default_group_by="state">
+                                <field name="name"/>
+                                <field name="assigned_to"/>
+                                <field name="state"/>
+                                <templates>
+                                    <t t-name="card">
+                                        <div class="oe_kanban_card">
+                                           <div class="task_title">
+                                                <i class="fa fa-tasks space-right" style="font-size:20px; color:#7c5cff; "></i>
+                                                <h1><field name="name"/></h1>
+                                           </div>
+                                            <div class="priority-icon">
+                                                <field name="priority" widget="priority"/>
+                                            </div>
+                                            <div>
+                                                <i class="fa fa-user space-right"></i>
+                                                <strong>Assigned To : </strong>
+                                                <field name="assigned_to"/>
+                                            </div>
+                                            <div>
+                                                <i class="fa fa-clock-o space-right"></i>
+                                                <strong>Hours Spent : </strong>
+                                                <field name="hours_spent"/>
+                                            </div>
+                                            <div>
+                                                <i class="fa fa-money space-right"></i>
+                                                <strong>Cost Spent : </strong>
+                                                <field name="cost_spent"/>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </templates>
+                            </kanban>
+                            </field>
+                        </page>
+                    </notebook>
                 </form>
             </field>
         </record>
 
 
-        <!-- PROJECT TREE VIEW -->
-
-        <record id="view_society_project_tree" model="ir.ui.view">
-            <field name="name">society.project.tree</field>
-            <field name="model">society.project</field>
-            <field name="arch" type="xml">
-                <list>
-                    <field name="name"/>
-                    <field name="client_id"/>
-                    <field name="manager_id"/>
-                </list>
-            </field>
-        </record>
-
-
-        <!-- PROJECT ACTION -->
-
-        <record id="society_project_action" model="ir.actions.act_window">
+        <!-- ACTION POUR AFFICHER LES PROJETS -->
+        <record id="action_view_project" model="ir.actions.act_window">
             <field name="name">Projects</field>
             <field name="res_model">society.project</field>
             <field name="view_mode">kanban,list,form</field>
+            <field name="view_id" ref="view_project_kanban"/>
         </record>
 
     </data>

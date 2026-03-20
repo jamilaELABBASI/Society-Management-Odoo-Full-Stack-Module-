@@ -13,7 +13,7 @@
         <field name="domain_force">
             ['|',
                 ('manager_id', '=', user.id),
-                ('manager_id', '=', False)
+                ('create_uid', '=', user.id)
             ]
         </field>
     </record>

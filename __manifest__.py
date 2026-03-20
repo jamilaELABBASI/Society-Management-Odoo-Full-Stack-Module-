@@ -11,8 +11,8 @@
 
         'views/project/project_views.xml',
         'views/project/project_kanban.xml',
-        'views/task/task_kanban.xml',
         'views/task/task_views.xml',
+        'views/task/task_kanban.xml',
         'views/project/project_menu.xml',
 
     ],

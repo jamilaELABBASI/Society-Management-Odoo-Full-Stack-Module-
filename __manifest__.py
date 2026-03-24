@@ -21,8 +21,12 @@
         'web.assets_backend':[
             'society_management/static/src/css/task_kanban.css',
             'society_management/static/src/css/project_views.css',
+            'society_management/static/src/components/project/project.js',
+            'society_management/static/src/components/project/project.xml',
+
         ],
     },
+
     'application': True,
     'license': 'LGPL-3',
 }

@@ -7,9 +7,6 @@
             <field name="arch" type="xml">
 
                 <kanban default_group_by="state">
-                    <header>
-                        <h1>Test</h1>
-                    </header>
 
                     <field name="name"/>
                     <field name="client_id"/>
@@ -18,24 +15,41 @@
 
                     <templates>
                         <t t-name="card">
+                             <!-- HEADER -->
+<!--                                <div class="kanban_header">-->
+<!--                                    <strong>-->
+<!--                                        <field name="name"/>-->
+<!--                                    </strong>-->
+<!--                                </div>-->
                             <div class="oe_kanban_card">
-                                <strong>
+
+
+
+                                <div class="kanban_body">
+                                    <strong>
                                     <field name="name"/>
                                 </strong>
 
-                                <div>
-                                    Client :
-                                    <field name="client_id"/>
-                                </div>
+                                    <div>
+                                        Client :
+                                        <field name="client_id"/>
+                                    </div>
 
-                                <div>
-                                    Manager :
-                                    <field name="manager_id"/>
+                                    <div>
+                                        Manager :
+                                        <field name="manager_id"/>
+                                    </div>
+                                    <div>
+                                        State :
+                                        <field name="state"/>
+                                    </div>
                                 </div>
-                                <div>
-                                    State :
-                                    <field name="state"/>
-                                </div>
+                                <!-- HEADER -->
+<!--                                <div class="kanban_footer">-->
+<!--                                    <strong>-->
+<!--                                        <field name="name"/>-->
+<!--                                    </strong>-->
+<!--                                </div>-->
                             </div>
                         </t>
                     </templates>

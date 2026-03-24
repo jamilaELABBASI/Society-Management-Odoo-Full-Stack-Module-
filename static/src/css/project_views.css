@@ -45,6 +45,9 @@
     display:flex;
 }
 
+.my_progress .progress-bar {
+    background-color: red !important;   /* couleur de remplissage */
+}
 
 
  .space-right{

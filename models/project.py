@@ -29,11 +29,11 @@ class Project(models.Model):
         ('0','Low'),
         ('1','Medium'),
         ('2','High'),
+        ('3','Urgent'),
     ],default='1')
-    bar_draft=fields.Float(string="Draft (%)",compute="_compute_progress")
-    bar_progress=fields.Float(string="Progress (%)",compute="_compute_progress")
+    bar_todo=fields.Float(string="Draft (%)",compute="_compute_progress")
+    bar_pending=fields.Float(string="Progress (%)",compute="_compute_progress")
     bar_done=fields.Float(string="Done (%)",compute="_compute_progress")
-    bar_cancelled=fields.Float(string="Cancelled (%)",compute="_compute_progress")
     is_late=fields.Boolean(compute="_compute_is_late")
 
 
@@ -200,35 +200,37 @@ class Project(models.Model):
     """
     def unlink(self):
         for record in self:
-            if record.state == 'done':
-                raise UserError("Impossible de supprimer le projet est termine.")
+            if record.state == 'cancel':
+                raise UserError("Impossible de supprimer le projet est cancelled.")
         return super().unlink()
 
     def _compute_task_count(self):
         for rec in self:
             rec.task_count=len(self.task_ids)
 
-    @depends('task_ids.state')
+
+    @depends('task_ids','task_ids.state')
     def _compute_progress(self):
         for project in self:
-            project.bar_draft = 0
-            project.bar_progress = 0
-            project.bar_done = 0
-            project.bar_cancelled = 0
+            # project.bar_draft = 0
+            # project.bar_progress = 0
+            # project.bar_done = 0
+            # project.bar_cancelled = 0
 
             if project.task_ids:
                 total = len(project.task_ids)
 
-                draft = len(project.task_ids.filtered(lambda t: t.state == 'draft'))
-                progress = len(project.task_ids.filtered(lambda t: t.state == 'progress'))
+                todo = len(project.task_ids.filtered(lambda t: t.state == 'todo'))
+                pending = len(project.task_ids.filtered(lambda t: t.state == 'pending'))
                 done = len(project.task_ids.filtered(lambda t: t.state == 'done'))
-                cancelled = len(project.task_ids.filtered(lambda t: t.state == 'cancelled'))
 
-                project.bar_draft = (draft / total) * 100
-                project.bar_progress = (progress / total) * 100
+                project.bar_todo = (todo / total) * 100
+                project.bar_pending = (pending / total) * 100
                 project.bar_done = (done / total) * 100
-                project.bar_cancelled = (cancelled / total) * 100
-
+            else:
+                project.bar_done=0
+                project.bar_todo=0
+                project.bar_pending=0
 
 
     @api.depends('end_date','state')

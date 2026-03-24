@@ -1,0 +1,54 @@
+   <templates xml:space="preserve">
+    <t t-name="society_management.project_dashboard">
+        <div class="project_header">
+             <div class="dashboard_header">
+                            <h1>Statics of Tasks</h1>
+                        </div>
+             <div class="dashboard_stats">
+                <div class="stat_card">
+                    <i class="fa fa-pencil text-secondary space-right" title=""></i>
+                    <strong class="space-right">To Do</strong>
+                    <span>12</span>
+                </div>
+                <div class="stat_card">
+                    <i class="fa fa-spinner fa-spin text-warning space-right" title=""></i>
+                    <strong class="space-right">Pending</strong>
+                    <span >12</span>
+                </div>
+                <div class="stat_card">
+                    <i class="fa fa-check-circle text-success space-right" title=""></i>
+                    <strong class="space-right">Done</strong>
+                    <span>12</span>
+                </div>
+<!--                            <div class="stat_card">-->
+<!--                                <i class="fa fa-times-circle text-danger space-right"></i>-->
+<!--                                <strong class="space-right">Cancelled</strong>-->
+<!--                                <span>12</span>-->
+<!--                            </div>-->
+
+            </div>
+             <div class="dashboard_stats">
+                <div class="stat_card">
+<!--                                <field name="bar_todo" widget="progressbar" class="my_progress"/>-->
+                    <field name="bar_todo" widget="progressbar" class="my_progress"/>
+                </div>
+
+                <div class="stat_card">
+                    <field name="bar_pending" widget="progressbar" />
+                </div>
+                <div class="stat_card">
+                    <field name="bar_done" widget="progressbar"/>
+                </div>
+
+            </div>
+        </div>
+        <div class="project_body">
+        </div>
+        <div class="project_footer">
+
+        </div>
+
+    </t>
+</templates>
+
+

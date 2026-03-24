@@ -2,4 +2,8 @@
     <menuitem id="menu_society" name="Society Management"/>
     <menuitem id="project_menu" name="Projects" parent="menu_society" action="action_view_project"/>
     <menuitem id="task_menu" name="Tasks" parent="menu_society" action="society_task_action"/>
+    <menuitem id="menu_project_dashboard" name="Dashboard" parent="menu_society" action="action_project_dashboard"/>
 </odoo>
+
+
+

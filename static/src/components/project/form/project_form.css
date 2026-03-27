@@ -1,0 +1,28 @@
+.form_container{
+    margin:auto;
+    justify-centent:center;
+    justify-items:center;
+    padding:2vw;
+}
+
+
+.form{
+    width:800px;
+    flex-direction:column;
+    display:flex;
+    gap:20px;
+
+}
+
+
+.input{
+    border-radius:10px;
+    padding:10px;
+    color:black;
+    font-size:12px;
+}
+
+input::placeholder,textarea::placeholder{
+    color:black;
+    opacity:1;
+}

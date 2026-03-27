@@ -22,9 +22,6 @@
 <!--                                    </strong>-->
 <!--                                </div>-->
                             <div class="oe_kanban_card">
-
-
-
                                 <div class="kanban_body">
                                     <strong>
                                     <field name="name"/>

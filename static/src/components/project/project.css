@@ -1,0 +1,119 @@
+.header h1{
+    text-align:center;
+    font-weight:bold;
+    font-size:40px;
+}
+
+
+.project_dashboard{
+    margin:40px;
+    flex-direction:column;
+    gap:40px;
+    display:flex;
+
+}
+
+.create_project{
+    background-color:#238DC2;
+    border:solid 2px #238DC2;
+    color:white;
+    border-radius:10px;
+    font-size:14px;
+    width:150px;
+    height:40px;
+    font-weight:bold;
+    }
+
+
+.body {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+    padding: 40px;
+
+}
+
+
+.project_card{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    width:400px;
+    height:200px;
+    border:solid 4px;
+    border-radius:10px;
+    padding:10px;
+
+
+}
+
+.project_card h2{
+    text-align:center;
+    font-size:25px;
+    font-weight:bold;
+}
+
+.project_state {
+    justify-content:flex-end;
+    display:flex;
+    padding:10px;
+}
+
+/*
+.project_state{
+    display:flex;
+    gap:20px;
+}
+*/
+.project_state span{
+    display:inline-block;
+    width:80px;
+    padding:10px;
+    font-size:15px;
+    font-weight:bold;
+    border-radius:10px;
+    text-align:center;
+    color:white;
+}
+
+.state_draft{
+    background-color:red;
+}
+
+.state_progress{
+    background-color:orange;
+}
+
+.state_done{
+    background-color:green;
+}
+
+.project_actions{
+    align-items:center;
+    justify-content:center;
+    display:flex;
+}
+
+.icon{
+    padding:10px;
+    font-size:20px;
+}
+
+.stat_card{
+    width:400px;
+    height:40px;
+    padding:10px;
+    border-radius:10px;
+    align-items:center;
+    justify-content:center;
+    display:flex;
+}
+
+.space-right{
+    margin-right:10px;
+}
+
+.stat_card strong, .stat_card span, .stat_card i{
+    color:white;
+}
+

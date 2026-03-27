@@ -198,6 +198,7 @@ class Project(models.Model):
             raise UserError("Impossible de modifier le projet est termine")
         return super().write(vals)
     """
+
     def unlink(self):
         for record in self:
             if record.state == 'cancel':
@@ -212,11 +213,6 @@ class Project(models.Model):
     @depends('task_ids','task_ids.state')
     def _compute_progress(self):
         for project in self:
-            # project.bar_draft = 0
-            # project.bar_progress = 0
-            # project.bar_done = 0
-            # project.bar_cancelled = 0
-
             if project.task_ids:
                 total = len(project.task_ids)
 
@@ -272,3 +268,4 @@ class Project(models.Model):
                 else:
                     rec.progress=0
     """
+

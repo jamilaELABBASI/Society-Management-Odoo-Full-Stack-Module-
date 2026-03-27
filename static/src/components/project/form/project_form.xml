@@ -1,0 +1,30 @@
+<templates xml:space="preserve">
+    <t t-name="society_management.project_form">
+        <div class="form_container">
+            <div class="form">
+
+                <input class="input" type="text" placeholder="Project Name"
+                   t-model="props.state.form.name"/>
+
+            <textarea class="input" placeholder="Description"
+                      t-model="props.state.form.description"/>
+
+            <input class="input" type="date" t-model="props.state.form.start_date"/>
+            <input class="input" type="date" t-model="props.state.form.end_date"/>
+
+            <select class="input" t-model="props.state.form.state">
+                <option value="draft">Draft</option>
+                <option value="progress">In Progress</option>
+                <option value="done">Done</option>
+                <option value="cancel">Cancelled</option>
+            </select>
+
+           <div class="buttons">
+                <button t-on-click="props.saveProject">Save</button>
+                <button t-on-click="props.hideCreateForm">Cancel</button>
+           </div>
+
+            </div>
+        </div>
+    </t>
+</templates>

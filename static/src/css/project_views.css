@@ -21,7 +21,7 @@
     display:flex;
 }
 
-.stat_card{
+/*.stat_card{
     width:200px;
     border-radius:10px;
     border-style:solid;
@@ -31,7 +31,7 @@
     text-align:center;
     display:inline-block;
     color:black;
-    }
+    } */
 
 .task_title h1{
     color:#7c5cff;
@@ -49,7 +49,8 @@
     background-color: red !important;   /* couleur de remplissage */
 }
 
-
+/*
  .space-right{
     margin-right:15px;
 }
+*/

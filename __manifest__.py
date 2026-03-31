@@ -21,9 +21,9 @@
         'web.assets_backend':[
             'society_management/static/src/css/task_kanban.css',
             'society_management/static/src/css/project_views.css',
-            'society_management/static/src/components/project/project.js',
-            'society_management/static/src/components/project/project.xml',
-            'society_management/static/src/components/project/project.css',
+            'society_management/static/src/components/project/project_dashboard.js',
+            'society_management/static/src/components/project/project_dashboard.xml',
+            'society_management/static/src/components/project/project_dashboard.css',
             'society_management/static/src/components/project/form/project_form.js',
             'society_management/static/src/components/project/form/project_form.xml',
             'society_management/static/src/components/project/form/project_form.css',

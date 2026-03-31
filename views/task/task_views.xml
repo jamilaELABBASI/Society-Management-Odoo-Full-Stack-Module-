@@ -37,9 +37,10 @@
 
                         <group>
                             <field name="name"/>
-                            <field name="project_id"/>
                             <field name="assigned_to"/>
                             <field name="state"/>
+                            <field name="description"/>
+                            <field name="priority" widget="priority"/>
                         </group>
 
                     </sheet>

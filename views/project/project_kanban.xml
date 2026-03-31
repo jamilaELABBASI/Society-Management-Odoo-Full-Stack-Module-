@@ -40,6 +40,14 @@
                                         State :
                                         <field name="state"/>
                                     </div>
+                                    <div>
+                                        Description :
+                                        <field name="description"/>
+                                    </div>
+                                    <div style="text-align:center">
+<!--                                    <span>Priority :</span>-->
+                                        <field name="priority" widget="priority"/>
+                                    </div>
                                 </div>
                                 <!-- HEADER -->
 <!--                                <div class="kanban_footer">-->

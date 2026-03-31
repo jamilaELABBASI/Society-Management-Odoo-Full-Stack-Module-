@@ -7,24 +7,23 @@
             <field name="arch" type="xml">
 
                 <kanban>
-
                     <templates>
-
                         <t t-name="card">
                             <div class="o_kanban_record">
-
                                 <strong>
                                     <field name="name"/>
                                 </strong>
-
                                 <div>
                                     <field name="assigned_to"/>
                                 </div>
-
                                 <div>
                                     <field name="state"/>
+                                </div><div>
+                                    <field name="description"/>
                                 </div>
-
+                                <div>
+                                    <field name="priority" widget="priority" />
+                                </div>
                             </div>
                         </t>
 

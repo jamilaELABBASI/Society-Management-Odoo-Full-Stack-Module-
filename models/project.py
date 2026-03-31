@@ -12,7 +12,18 @@ class Project(models.Model):
     name = fields.Char(string='Name')
     description = fields.Text(string="Description")
     client_id=fields.Many2one('society.client',string='Client ID')
-    manager_id=fields.Many2one('res.users',string='Project Manager')
+    # manager_id=fields.Many2one('res.users',string='Project Manager',manager_id=fields.Many2one('res.users',string='Project Manager'),domain="[('groups_id','in',[ref('society_management.group_manager')])]")
+    manager_group_id = fields.Many2one(
+        'res.groups',
+        default=lambda self: self.env.ref('society_management.group_manager'),
+        store=False
+    )
+
+    manager_id = fields.Many2one(
+        'res.users',
+        string='Manager',
+        # domain="[('groups_id','in',[manager_group_id])]"
+    )
     start_date=fields.Date(string='Start Date')
     end_date=fields.Date(string='End Date')
     state=fields.Selection([

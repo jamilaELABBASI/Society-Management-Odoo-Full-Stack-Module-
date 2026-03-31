@@ -15,13 +15,10 @@
            <t t-if="state.showForm">
             <ProjectForm
                 state="state"
+                users="users"
                 saveProject.bind="saveProject"
                 hideCreateForm.bind="hideCreateForm"/>
            </t>
-
-
-
-
             <t t-else="">
                 <div class="body">
                 <!-- TODO -->

@@ -22,7 +22,7 @@ class Task(models.Model):
         ('2','High'),
         ('3','Urgent'),
     ])
-    description=fields.Text(string='Description')
+    description=fields.Text(string='Detail')
 
 
 

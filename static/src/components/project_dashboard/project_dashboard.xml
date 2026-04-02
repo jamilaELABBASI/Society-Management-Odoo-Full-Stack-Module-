@@ -13,17 +13,28 @@
 
     <!-- FORMULAIRE -->
            <t t-if="state.showForm">
-            <ProjectForm
+               <t t-if="state.mode==='view'">
+                   <ProjectView
+                        state="state"
+                        hideCreateForm.bind="hideCreateForm"
+                   />
+               </t>
+               <t t-else="">
+                               <ProjectForm
                 state="state"
                 users="users"
                 saveProject.bind="saveProject"
-                hideCreateForm.bind="hideCreateForm"/>
+                hideCreateForm.bind="hideCreateForm"
+                editProject.bind="editProject"
+            />
+               </t>
            </t>
+
             <t t-else="">
                 <div class="body">
                 <!-- TODO -->
 
-                    <t t-foreach="projects" t-as="project" t-key="project.id">
+                    <t t-foreach="state.projects" t-as="project" t-key="project.id">
                     <div class="project_card" >
                        <div class="project_state">
                             <span t-att-class="'state_'+project.state">

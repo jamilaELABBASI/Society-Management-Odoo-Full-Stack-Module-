@@ -1,14 +1,10 @@
 .form_container{
-    margin:auto;
-    justify-centent:center;
-    justify-items:center;
-    text-align:center;
-    padding:2vw;
+ margin:auto ;
 }
 
 
 .form{
-    width:800px;
+    width:600px;
     flex-direction:column;
     display:flex;
     gap:20px;
@@ -45,7 +41,7 @@ select:focus {
 }
 
 .dates input{
-    width:390px;
+    width:290px;
 }
 
 

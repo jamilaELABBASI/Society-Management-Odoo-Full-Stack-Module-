@@ -189,10 +189,10 @@ class Project(models.Model):
                 if record.end_date < record.start_date:
                     raise ValidationError("La date de fin doit etre apres la date de debut")
 
-
+    @api.model
     def create(self,vals):
-        if not vals.get('state'):
-            vals['state'] = 'draft'
+        for vals in vals:
+            vals.setdefault('state','draft')
         return super().create(vals)
 
 

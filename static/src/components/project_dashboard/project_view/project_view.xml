@@ -1,0 +1,35 @@
+<t t-name="society_management.project_view">
+
+    <div class="view_container">
+        <div class="view">
+
+            <h2 t-esc="props.state.form.name"/>
+
+            <p t-esc="props.state.form.description"/>
+
+            <p>
+                <strong>Manager:</strong>
+                <t t-esc="props.state.form.manager_name"/>
+            </p>
+
+            <p>
+                <strong>Start:</strong>
+                <t t-esc="props.state.form.start_date"/>
+            </p>
+
+            <p>
+                <strong>End:</strong>
+                <t t-esc="props.state.form.end_date"/>
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                <t t-esc="props.state.form.state"/>
+            </p>
+
+            <button t-on-click="props.hideCreateForm">Close</button>
+
+        </div>
+    </div>
+
+</t>

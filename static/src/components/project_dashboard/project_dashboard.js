@@ -49,6 +49,24 @@ export class ProjectDashboard extends Component {
     }
 
 
+    async openProject(projectId) {
+    const project = await this.orm.read(
+        "project.project",
+        [projectId],
+        ["name", "description", "manager_id", "start_date", "end_date", "state"]
+    );
+
+    this.state.form = {
+        name: project[0].name,
+        description: project[0].description,
+        manager_name: project[0].manager_id[1], // ⚠️ important
+        start_date: project[0].start_date,
+        end_date: project[0].end_date,
+        state: project[0].state,
+    };
+}
+
+/*
 async openProject(ev) {
     const id = parseInt(ev.currentTarget.dataset.id);
 
@@ -73,7 +91,7 @@ async openProject(ev) {
     this.state.mode = "view";
     this.state.showForm = true;
 }
-
+*/
 
     async editProject(ev) {
     const id = parseInt(ev.currentTarget.dataset.id);

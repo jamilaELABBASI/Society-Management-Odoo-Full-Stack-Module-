@@ -5,218 +5,201 @@ import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { ProjectForm } from "./project_form/project_form";
 import { ProjectView } from "./project_view/project_view";
+import { TaskDashboard } from "./task_dashboard/task_dashboard";
 
 export class ProjectDashboard extends Component {
 
-    static components = { ProjectForm, ProjectView }
+    static template = "society_management.project_dashboard_tag";
+    static components = { ProjectForm, ProjectView, TaskDashboard };
 
     setup() {
         this.orm = useService("orm");
         this.action = useService("action");
 
-        this.projects = [];
-        this.users = [];
-
         this.state = useState({
-            projects:[],
-            showForm: false,
-            mode:"create",
-            form: {
+            projects: [],
+            tasks: [],
+            users: [],
+
+            showProjectForm: false,
+            showTaskForm: false,
+
+            mode: "create",
+
+            projectForm: {
+                id: false,
                 name: "",
                 description: "",
                 start_date: "",
                 end_date: "",
                 state: "draft",
-                manager_id: null,
+                manager_id: false,
+            },
+
+            taskForm: {
+                name: "",
+                description: "",
+                assigned_to: false,
+                priority: "1",
+                state: "todo",
             },
         });
 
         onWillStart(async () => {
-            // Charger les projets
-            this.state.projects = await this.orm.searchRead(
+            const projects = await this.orm.searchRead(
                 "society.project",
                 [],
-                ["name", "manager_id", "state"]
+                ["id", "name", "description", "manager_id", "state", "start_date", "end_date"]
             );
 
-            // Charger les utilisateurs
-            this.users = await this.orm.searchRead(
-            'res.users',
-            [],
-            ['name'] // on récupère les users liés
-             );
+            const users = await this.orm.searchRead(
+                "res.users",
+                [],
+                ["id", "name"]
+            );
+
+            this.state.projects = projects || [];
+            this.state.users = users || [];
         });
     }
 
+    // =========================
+    // TASK FORM
+    // =========================
+    showTaskForm() {
+        this.state.taskForm = {
+            name: "",
+            description: "",
+            assigned_to: false,
+            priority: "1",
+            state: "todo",
+        };
 
-    async openProject(projectId) {
-    const project = await this.orm.read(
-        "project.project",
-        [projectId],
-        ["name", "description", "manager_id", "start_date", "end_date", "state"]
-    );
-
-    this.state.form = {
-        name: project[0].name,
-        description: project[0].description,
-        manager_name: project[0].manager_id[1], // ⚠️ important
-        start_date: project[0].start_date,
-        end_date: project[0].end_date,
-        state: project[0].state,
-    };
-}
-
-/*
-async openProject(ev) {
-    const id = parseInt(ev.currentTarget.dataset.id);
-
-    const project = await this.orm.searchRead(
-        "society.project",
-        [["id", "=", id]],
-        ["id", "name", "description", "manager_id", "start_date", "end_date", "state"]
-    );
-
-    this.state.form = {
-        ...project[0],
-        manager_name: project[0].manager_id?.[1] || ""
-    };
-
-    // charger les tâches liées
-    this.state.tasks = await this.orm.searchRead(
-        "society.task",
-        [["project_id", "=", id]],
-        ["id", "name", "state"]
-    );
-
-    this.state.mode = "view";
-    this.state.showForm = true;
-}
-*/
-
-    async editProject(ev) {
-    const id = parseInt(ev.currentTarget.dataset.id);
-
-    // Récupérer les données du projet via RPC
-    const project = await this.orm.call("society.project", "read", [[id], [
-        "name", "description", "manager_id", "start_date", "end_date", "state"
-    ]]);
-
-    // Mettre à jour le state pour passer en mode édition
-    this.state.form = {
-        ...project[0],
-        manager_name: project[0].manager_id[1], // si tu veux afficher le nom
-    };
-    this.state.mode = "edit";
-}
-
-
-    showCreateForm() {
-    this.state.form = {
-        name: "",
-        description: "",
-        manager_id: "",
-        start_date: "",
-        end_date: "",
-        state: "draft"
-    };
-
-    this.state.mode = "create";
-    this.state.showForm = true;
-}
-
-    async loadProjects() {
-    this.state.projects = await this.orm.searchRead(
-        "society.project",
-        [],
-        ["name", "manager_id", "state"]
-    );
-}
-
-   async saveProject() {
-    const data = {
-        ...this.state.form,
-        manager_id: this.state.form.manager_id
-            ? parseInt(this.state.form.manager_id)
-            : false,
-    };
-
-    if (this.state.mode === "create") {
-        await this.orm.create("society.project", [data]);
-    } else {
-        await this.orm.write("society.project", [data.id], data);
+        this.state.showTaskForm = true;
     }
 
-    // ✅ TRÈS IMPORTANT → recharger les projets
-    this.state.projects = await this.orm.searchRead(
-        "society.project",
-        [],
-        ["name", "manager_id", "state"]
-    );
-
-    this.state.showForm = false;
-}
-
-    async openProject(ev) {
-    const id = parseInt(ev.currentTarget.dataset.id);
-
-    const project = await this.orm.searchRead(
-        "society.project",
-        [["id", "=", id]],
-        ["id", "name", "description", "manager_id", "start_date", "end_date", "state"]
-    );
-
-    this.state.form = {
-        ...project[0],
-        manager_name: project[0].manager_id?.[1] || ""
-    };
-
-    // charger les tâches liées
-    this.state.tasks = await this.orm.searchRead(
-        "society.task",
-        [["project_id", "=", id]],
-        ["id", "name", "state"]
-    );
-
-    this.state.mode = "view";
-    this.state.showForm = true;
-}
-
-    async editProject(ev) {
-    const id = parseInt(ev.currentTarget.dataset.id);
-
-    const project = await this.orm.searchRead(
-        "society.project",
-        [["id", "=", id]],
-        ["id", "name", "description", "manager_id", "start_date", "end_date", "state"]
-    );
-
-    this.state.form = {
-        ...project[0],
-        manager_name: project[0].manager_id?.[1] || ""
-    };
-
-    this.state.mode = "edit";
-    this.state.showForm = true;
-}
-
-    async deleteProject(ev) {
+    // =========================
+    // OPEN PROJECT
+    // =========================
+    openProject = async (ev) => {
         const id = parseInt(ev.currentTarget.dataset.id);
-        try {
-            await this.orm.unlink("society.project", [id]);
-            // Supprimer du tableau local
-            this.state.projects = this.state.projects.filter(p => p.id !== id);
-        } catch (error) {
-            console.error("Erreur lors de la suppression du projet:", error);
+
+        const project = await this.orm.searchRead(
+            "society.project",
+            [["id", "=", id]],
+            ["id", "name", "description", "manager_id", "start_date", "end_date", "state"]
+        );
+
+        const p = project[0];
+
+        this.state.projectForm = {
+            id: p.id,
+            name: p.name || "",
+            description: p.description || "",
+            manager_id: p.manager_id ? p.manager_id[0] : false,
+            state: p.state || "draft",
+            start_date: p.start_date || "",
+            end_date: p.end_date || "",
+        };
+
+        this.state.mode = "view";
+        this.state.showProjectForm = true;
+    };
+
+    // =========================
+    // EDIT PROJECT
+    // =========================
+    editProject = (ev) => {
+        const id = parseInt(ev.currentTarget.dataset.id);
+        const project = this.state.projects.find(p => p.id === id);
+
+        if (!project) return;
+
+        this.state.mode = "edit";
+
+        this.state.projectForm = {
+            id: project.id,
+            name: project.name || "",
+            description: project.description || "",
+            manager_id: project.manager_id ? project.manager_id[0] : false,
+            state: project.state || "draft",
+            start_date: project.start_date || "",
+            end_date: project.end_date || "",
+        };
+
+        this.state.showProjectForm = true;
+    };
+
+    // =========================
+    // DELETE
+    // =========================
+    deleteProject = async (ev) => {
+        const id = parseInt(ev.currentTarget.dataset.id);
+
+        await this.orm.unlink("society.project", [id]);
+
+        this.state.projects = this.state.projects.filter(p => p.id !== id);
+    };
+
+    // =========================
+    // CREATE FORM
+    // =========================
+    showProjectForm = () => {
+        this.state.mode = "create";
+
+        this.state.projectForm = {
+            id: false,
+            name: "",
+            description: "",
+            manager_id: false,
+            start_date: "",
+            end_date: "",
+            state: "draft",
+        };
+
+        this.state.showProjectForm = true;
+    };
+
+    // =========================
+    // SAVE PROJECT
+    // =========================
+    saveProject = async () => {
+        const data = {
+            name: this.state.projectForm.name,
+            description: this.state.projectForm.description,
+            manager_id: this.state.projectForm.manager_id
+                ? parseInt(this.state.projectForm.manager_id)
+                : false,
+            start_date: this.state.projectForm.start_date,
+            end_date: this.state.projectForm.end_date,
+            state: this.state.projectForm.state,
+        };
+
+        if (this.state.mode === "create") {
+            await this.orm.create("society.project", [data]);
+        } else {
+            await this.orm.write(
+                "society.project",
+                [this.state.projectForm.id],
+                data
+            );
         }
-    }
 
+        this.state.projects = await this.orm.searchRead(
+            "society.project",
+            [],
+            ["id", "name", "description", "manager_id", "state"]
+        );
 
+        this.state.showProjectForm = false;
+    };
 
-    hideCreateForm() {
-        this.state.showForm = false;
-    }
-
+    // =========================
+    // CLOSE
+    // =========================
+    hideCreateForm = () => {
+        this.state.showProjectForm = false;
+    };
 }
 
-ProjectDashboard.template = "society_management.project_dashboard_tag";
 registry.category("actions").add("project_dashboard_tag", ProjectDashboard);

@@ -1,6 +1,5 @@
 <odoo>
     <data>
-
         <!-- FORMULAIRE POUR CRÉER UN PROJET -->
         <record id="society_project_form_create" model="ir.ui.view">
             <field name="name">society.project.form.create</field>

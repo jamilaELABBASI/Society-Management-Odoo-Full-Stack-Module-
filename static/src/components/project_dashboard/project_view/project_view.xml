@@ -1,44 +1,53 @@
 <t t-name="society_management.project_view">
 
-    <div id="view_container">
-         <div id="icon">
-                <i class="fa fa-close" t-on-click="props.hideCreateForm"></i>
-            </div>
-        <div id="view">
+    <div id="view_project">
+        <div id="view_container">
+             <div id="icon">
+                    <i class="fa fa-close" t-on-click="props.hideCreateForm"></i>
+                </div>
+             <div id="view">
 
-          <div>
-              <i class="fa fa-folder"></i>
-              <strong>Name</strong>
-              <p t-esc="props.state.form.name"/>
-          </div>
-            <div>
-              <i class="fa fa-align-left"></i>
-                <strong>Description</strong>
-                <p t-esc="props.state.form.description"/>
-            </div>
+              <div>
+                  <i class="fa fa-folder"></i>
+                  <strong>Name</strong>
+                  <span t-esc="props.state.projectForm.name"/>
+              </div>
+                <div>
+                    <i class="fa fa-align-left"></i>
+                    <strong>Description</strong>
+                    <span t-esc="props.state.projectForm.description"/>
+                </div>
 
-            <div>
-              <i class="fa fa-user"></i>
-                <strong>Manager</strong>
-                <p t-esc="props.state.form.manager_name"/>
-            </div>
-            <div>
-              <i class="fa fa-calendar"></i>
-                <strong>Start Date</strong>
-                                <p t-esc="props.state.form.start_date"/>
-            </div>
-            <div>
-              <i class="fa fa-calendar-check-o"></i>
-                <strong>End Date</strong>
-                                <p t-esc="props.state.form.end_date"/>
-            </div>
-            <div>
-              <i class="fa fa-tasks"></i>
-                                <strong>Status</strong>
-                <p t-esc="props.state.form.state"/>
-            </div>
+                <div>
+                  <i class="fa fa-user"></i>
+                    <strong>Manager</strong>
+                    <span t-esc="props.state.projectForm.manager_name"/>
+                </div>
+                <div>
+                  <i class="fa fa-calendar"></i>
+                    <strong>Start Date</strong>
+                    <span t-esc="props.state.projectForm.start_date"/>
+                </div>
+                <div>
+                  <i class="fa fa-calendar-check-o"></i>
+                    <strong>End Date</strong>
+                    <span t-esc="props.state.projectForm.end_date"/>
+                </div>
+                <div>
+                  <i class="fa fa-tasks"></i>
+                    <strong>Status</strong>
+                    <span t-esc="props.state.projectForm.state"/>
+                </div>
 
+            </div>
+        </div>
+        <div>
+            <TaskDashboard
+                    tasks="props.state.tasks"
+                    showTaskForm="props.showTaskForm"
+            />
         </div>
     </div>
+
 
 </t>

@@ -1,0 +1,84 @@
+#create_task{
+    background-color:#238DC2;
+    border:solid 2px #238DC2;
+    color:white;
+    border-radius:10px;
+    font-size:14px;
+    width:150px;
+    height:40px;
+    font-weight:bold;
+    margin-bottom:40px ;
+
+}
+
+#tasks{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 40px;
+    margin: auto;
+    padding:0 20px ;
+}
+
+
+#task_card{
+    width: 400px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,1);
+    border-radius: 10px;
+    flex-direction: column;
+    text-align: center;
+}
+
+#task_card div{
+    display: flex;
+    gap: 20px;
+    text-align: justify;
+}
+
+
+#task_card div i{
+    justify-content: center;
+    display: flex;
+    font-size: 20px;
+}
+
+
+#task_state{
+    justify-content: flex-end;
+    display: flex;
+    color: white;
+}
+
+#task_state span{
+    display:inline-block;
+    width:100px;
+    padding:10px;
+    font-size:15px;
+    font-weight:bold;
+    border-radius:10px;
+    text-align:center;
+}
+
+
+.state_0{
+    background-color: #4dc6fb;
+}
+
+.state_1{
+    background-color: #217822;
+
+}
+.state_2{
+    background-color: orangered;
+
+}
+.state_3{
+    background-color: red;
+
+}
+
+
+
+
+

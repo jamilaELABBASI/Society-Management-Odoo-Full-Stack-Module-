@@ -1,6 +1,14 @@
+#view_project{
+    overflow-y:auto ;
+    height: 100vh;
+    padding-bottom:150px;
+}
+
 
 #view_container{
-    margin: 5vh auto;
+    margin:auto;
+    max-width: 700px;
+    margin-bottom: 40px;
 }
 
 
@@ -16,7 +24,7 @@
     padding: 50px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,1);
-    background-color: #c2b2ec;
+    background-color: white;
 }
 
 #view div{
@@ -27,30 +35,73 @@
     justify-content: flex-start;
 }
 
-#view div p{
-    margin-left: 60px;
+#view div strong{
+    width: 100px;
+    justify-content: flex-start;
+    display: flex;
+     margin-right: 20px;
+}
+
+#view div i{
+ margin-right: 20px;
 }
 
 #icon{
     display:flex;
-    justify-content: flex-end;
-      background-color: black;
+    justify-content: center;
+    background-color: #765495;
     border-radius: 40px;
     width: 40px;
     height: 40px;
-    margin-left: 80vh;
+    margin-left: 93vh;
+    margin-bottom: 1px;
 }
 
 #icon i{
     font-size: 40px;
     color: white;
-    margin: auto;
+
 }
 
 #view div i{
-    color: white;
-        font-size: 30px;
+    color: #765495;
+    font-size: 30px;
 }
 
+#view div span{
+
+    /*margin-right: 40px;*/
+}
+
+/* #view_container{*/
+
+/*     margin: 10vh auto;*/
+/* }*/
 
 
+/* #view{*/
+
+/*     display: flex;*/
+/*        gap: 20px;*/
+/*     align-items: flex-start;*/
+/* }*/
+
+/* #icons i{*/
+/*     font-size: 20px;*/
+/* }*/
+
+/* #icons,#labels,#values{*/
+/*flex-direction: column;*/
+/*display: flex;*/
+/*     gap: 20px;*/
+
+
+/* }*/
+
+
+
+
+
+/*#view_container{*/
+/*    margin: 5vh auto;*/
+/*}*/

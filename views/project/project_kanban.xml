@@ -1,6 +1,5 @@
 <odoo>
     <data>
-
         <record id="view_project_kanban" model="ir.ui.view">
             <field name="name">society.project.kanban</field>
             <field name="model">society.project</field>

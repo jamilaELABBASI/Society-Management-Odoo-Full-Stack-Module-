@@ -2,9 +2,9 @@
     <t t-name="society_management.project_dashboard_tag">
         <div class="project_dashboard">
 
-            <div class="header" t-if="!state.showForm">
+            <div class="header" t-if="!state.showProjectForm">
                 <h1>📊 Project Dashboard</h1>
-                <button class="create_project"  t-on-click="showCreateForm" >
+                <button class="create_project"  t-on-click="showProjectForm" >
                     Create New Project
                 </button>
             </div>
@@ -12,21 +12,22 @@
 
 
     <!-- FORMULAIRE -->
-           <t t-if="state.showForm">
+           <t t-if="state.showProjectForm">
                <t t-if="state.mode==='view'">
                    <ProjectView
                         state="state"
-                        hideCreateForm.bind="hideCreateForm"
-                   />
+                        hideCreateForm="hideCreateForm"
+                        showTaskForm="showTaskForm"
+                    />
                </t>
                <t t-else="">
-                               <ProjectForm
-                state="state"
-                users="users"
-                saveProject.bind="saveProject"
-                hideCreateForm.bind="hideCreateForm"
-                editProject.bind="editProject"
-            />
+                   <ProjectForm
+                        state="state"
+                        users="state.users"
+                        saveProject="saveProject"
+                        hideCreateForm="hideCreateForm"
+                        editProject="editProject"
+                    />
                </t>
            </t>
 
@@ -48,10 +49,10 @@
 
                         <div class="project_actions">
                              <i class="fa fa-eye icon"
-                           title="voir"
-                           style="color:green"
-                           t-on-click="openProject"
-                           t-att-data-id="project.id"/>
+                               title="voir"
+                               style="color:green"
+                               t-on-click="openProject"
+                               t-att-data-id="project.id"/>
 
                             <i class="fa fa-pencil icon"
                                title="edit"

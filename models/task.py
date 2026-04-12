@@ -15,7 +15,6 @@ class Task(models.Model):
         ("pending","Pending"),
         ("done","Done"),
     ],string='State')
-
     priority=fields.Selection([
         ('0','Low'),
         ('1','Normal'),

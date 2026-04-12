@@ -30,6 +30,12 @@
             'society_management/static/src/components/project_dashboard/project_view/project_view.js',
             'society_management/static/src/components/project_dashboard/project_view/project_view.xml',
             'society_management/static/src/components/project_dashboard/project_view/project_view.css',
+            'society_management/static/src/components/project_dashboard/task_dashboard/task_dashboard.js',
+            'society_management/static/src/components/project_dashboard/task_dashboard/task_dashboard.xml',
+            'society_management/static/src/components/project_dashboard/task_dashboard/task_dashboard.css',
+            'society_management/static/src/components/project_dashboard/task_dashboard/task_form/task_form.js',
+            'society_management/static/src/components/project_dashboard/task_dashboard/task_form/task_form.xml',
+            'society_management/static/src/components/project_dashboard/task_dashboard/task_form/task_form.css',
         ],
     },
 

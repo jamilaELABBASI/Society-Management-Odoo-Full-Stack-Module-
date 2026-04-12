@@ -1,0 +1,41 @@
+<templates xml:space="preserve">
+
+    <t t-name="society_management.task_form">
+        <h1>Task Form</h1>
+<!--        <div class="form_container">-->
+<!--            <div class="form">-->
+<!--                <input  type="text" placeholder="Project Name"-->
+<!--                   t-model="props.state.form.name"/>-->
+<!--                <textarea  placeholder="Description"-->
+<!--                      t-model="props.state.form.description"/>-->
+<!--                <select t-model="props.state.form.manager_id">-->
+<!--                    <option value="null">Select Employe</option>-->
+<!--                    <t t-foreach="props.users" t-as="user" t-key="user.id">-->
+<!--                        <option t-att-value="user.id">-->
+<!--                            <t t-esc="user.name"/>-->
+<!--                        </option>-->
+<!--                    </t>-->
+<!--                </select>-->
+
+<!--                <div class="dates">-->
+<!--                    <input type="date"  t-model="props.state.form.start_date"/>-->
+<!--                    <input type="date"  t-model="props.state.form.end_date"/>-->
+<!--                </div>-->
+<!--                <select t-model="props.state.form.state">-->
+<!--                    <option value="draft">Draft</option>-->
+<!--                    <option value="progress">In Progress</option>-->
+<!--                    <option value="done">Done</option>-->
+<!--                    <option value="cancel">Cancelled</option>-->
+<!--                </select>-->
+
+<!--               <div class="buttons">-->
+<!--                    <button class="button_save" t-on-click="props.saveProject">Save</button>-->
+<!--                    <button class="button_cancel" t-on-click="props.hideCreateForm">Cancel</button>-->
+<!--               </div>-->
+
+<!--            </div>-->
+<!--        </div>-->
+    </t>
+
+
+</templates>

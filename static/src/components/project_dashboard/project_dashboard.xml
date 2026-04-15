@@ -2,98 +2,77 @@
     <t t-name="society_management.project_dashboard_tag">
         <div class="project_dashboard">
 
+            <!-- HEADER -->
             <div class="header" t-if="!state.showProjectForm">
-                <h1>📊 Project Dashboard</h1>
-                <button class="create_project"  t-on-click="showProjectForm" >
+                <h1>Project Dashboard</h1>
+                <button class="create_project" t-on-click="showProjectForm">
                     Create New Project
                 </button>
             </div>
 
+            <!-- FORMULAIRE -->
+            <t t-if="state.showProjectForm">
 
-
-    <!-- FORMULAIRE -->
-           <t t-if="state.showProjectForm">
-               <t t-if="state.mode==='view'">
-                   <ProjectView
+                <t t-if="state.mode=='view'">
+                    <ProjectView
                         state="state"
-                        hideCreateForm="hideCreateForm"
-                        showTaskForm="showTaskForm"
+                        hideCreateForm.bind="hideCreateForm"
+                        showTaskForm.bind="showTaskForm"
+                        saveTask.bind="saveTask"
+                        closeTaskForm.bind="closeTaskForm"
                     />
-               </t>
-               <t t-else="">
-                   <ProjectForm
-                        state="state"
-                        users="state.users"
-                        saveProject="saveProject"
-                        hideCreateForm="hideCreateForm"
-                        editProject="editProject"
-                    />
-               </t>
-           </t>
-
-            <t t-else="">
-                <div class="body">
-                <!-- TODO -->
-
-                    <t t-foreach="state.projects" t-as="project" t-key="project.id">
-                    <div class="project_card" >
-                       <div class="project_state">
-                            <span t-att-class="'state_'+project.state">
-                                <t t-if="project.state == 'draft'">To Do</t>
-                                <t t-if="project.state == 'progress'">In Progress</t>
-                                <t t-if="project.state == 'done'">Done</t>
-                                <t t-if="project.state == 'cancel'">Cancelled</t>
-                            </span>
-                       </div>
-                        <h2 t-esc="project.name"/>
-
-                        <div class="project_actions">
-                             <i class="fa fa-eye icon"
-                               title="voir"
-                               style="color:green"
-                               t-on-click="openProject"
-                               t-att-data-id="project.id"/>
-
-                            <i class="fa fa-pencil icon"
-                               title="edit"
-                               style="color:orange"
-                               t-on-click="editProject"
-                               t-att-data-id="project.id"/>
-
-                            <i class="fa fa-trash icon"
-                               title="delete"
-                               style="color:red"
-                               t-on-click="deleteProject"
-                               t-att-data-id="project.id"/>
-                        </div>
-
-                        <!--             STAT CARDS -->
-<!--                             <h3>Statics Tasks</h3>-->
-<!--                         <div class="dashboard_stats">-->
-<!--                            <div class="stat_card" style="background-color:#0783DB">-->
-<!--                                <i class="fa fa-clock-o space-right"/>-->
-<!--                                &lt;!&ndash; text-success &ndash;&gt;-->
-<!--                                <strong class="space-right">To Do</strong>-->
-<!--                                <span>12</span>-->
-<!--                            </div>-->
-<!--                            <div class="stat_card" style="background-color:#DB5807">-->
-<!--                                <i class="fa fa-spinner space-right"/>-->
-<!--                                &lt;!&ndash;text-warning&ndash;&gt;-->
-<!--                                <strong class="space-right">Pending</strong>-->
-<!--                                <span >12</span>-->
-<!--                            </div>-->
-<!--                            <div class="stat_card" style="background-color:#07dbb4">-->
-<!--                                <i class="fa fa-check space-right"/>-->
-<!--                                &lt;!&ndash;text-success&ndash;&gt;-->
-<!--                                <strong class="space-right">Done</strong>-->
-<!--                                <span>12</span>-->
-<!--                            </div>-->
-<!--                         </div>-->
-                    </div>
                 </t>
 
-            </div>
+                <t t-else="">
+                    <ProjectForm
+                        state="state"
+                        users="state.users"
+                        saveProject.bind="saveProject"
+                        hideCreateForm.bind="hideCreateForm"
+                        editProject.bind="editProject"
+                    />
+                </t>
+
             </t>
+
+            <!-- LIST PROJECT -->
+            <t t-else="">
+                <div class="body">
+
+                    <t t-foreach="state.projects" t-as="project" t-key="project.id">
+                        <div class="project_card">
+
+                            <div class="project_state">
+                                <span t-att-class="'state_'+project.state">
+                                    <t t-if="project.state == 'draft'">To Do</t>
+                                    <t t-if="project.state == 'progress'">In Progress</t>
+                                    <t t-if="project.state == 'done'">Done</t>
+                                    <t t-if="project.state == 'cancel'">Cancelled</t>
+                                </span>
+                            </div>
+
+                            <h2 t-esc="project.name"/>
+
+                            <div class="project_actions">
+                                <i class="fa fa-eye icon"
+                                   t-on-click="openProject"
+                                   t-att-data-id="project.id"/>
+
+                                <i class="fa fa-pencil icon"
+                                   t-on-click="editProject"
+                                   t-att-data-id="project.id"/>
+
+                                <i class="fa fa-trash icon"
+                                   t-on-click="deleteProject"
+                                   t-att-data-id="project.id"/>
+                            </div>
+
+                        </div>
+                    </t>
+
+                </div>
+            </t>
+
 
         </div>
     </t>

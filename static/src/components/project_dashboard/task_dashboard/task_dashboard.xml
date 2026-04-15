@@ -1,39 +1,57 @@
-    <t t-name="society_management.task_dashboard">
-        <button id="create_task" t-on-click="props.showTaskForm">Create Task</button>
-        <div id="tasks">
-            <t t-if="props.tasks &amp;&amp; props.tasks.length">
-                <t t-foreach="props.tasks" t-as="task" t-key="task.id">
-                    <div id="task_card">
-                        <div id="task_state">
-                            <span t-att-class="'state_'+task.priority">
-                                  <t t-if="task.priority == '0'">Low</t>
-                                  <t t-if="task.priority == '1'">Normal</t>
-                                  <t t-if="task.priority == '2'">High</t>
-                                  <t t-if="task.priority == '3'">Urgent</t>
-                            </span>
-                        </div>
-                        <h1 t-esc="task.name"/>
-                        <div>
-                            <i class="fa fa-align-left"></i>
-                            <p t-esc="task.description"/>
-                        </div>
-                        <div>
-                            <i class="fa fa-tasks"></i>
-                            <p t-esc="task.state"/>
-                        </div>
-                        <div>
-                          <i class="fa fa-user"></i>
-                          <p t-esc="task.assigned_to[1]"/>
-                        </div>
+<t t-name="society_management.task_dashboard">
+
+    <button id="create_task" t-on-click="props.showTaskForm">
+        Create Task
+    </button>
+
+    <button t-on-click="testClick">
+    Create Task
+</button>
+
+    <div id="tasks">
+
+        <t t-if="props.tasks?.length">
+
+            <t t-foreach="props.tasks" t-as="task" t-key="task.id">
+
+                <div id="task_card">
+
+                    <div id="task_state">
+                        <span t-att-class="'state_' + task.priority">
+                            <t t-if="task.priority == '0'">Low</t>
+                            <t t-if="task.priority == '1'">Normal</t>
+                            <t t-if="task.priority == '2'">High</t>
+                            <t t-if="task.priority == '3'">Urgent</t>
+                        </span>
                     </div>
-                </t>
+
+                    <h1 t-esc="task.name"/>
+
+                    <div>
+                        <i class="fa fa-align-left"></i>
+                        <p t-esc="task.description"/>
+                    </div>
+
+                    <div>
+                        <i class="fa fa-tasks"></i>
+                        <p t-esc="task.state"/>
+                    </div>
+
+                    <div>
+                        <i class="fa fa-user"></i>
+                        <p t-esc="task.assigned_to ? task.assigned_to[1] : ''"/>
+                    </div>
+
+                </div>
+
             </t>
-            <t t-else="">
-                <p>No tasks</p>
-            </t>
-        </div>
-    </t>
 
+        </t>
 
+        <t t-else="">
+            <p>No tasks</p>
+        </t>
 
+    </div>
 
+</t>

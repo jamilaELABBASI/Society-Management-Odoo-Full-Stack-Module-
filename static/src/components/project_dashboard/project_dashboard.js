@@ -13,71 +13,119 @@ export class ProjectDashboard extends Component {
     static components = { ProjectForm, ProjectView, TaskDashboard };
 
     setup() {
-        this.orm = useService("orm");
-        this.action = useService("action");
+    this.orm = useService("orm");
+    this.action = useService("action");
 
-        this.state = useState({
-            projects: [],
-            tasks: [],
-            users: [],
+    // 🔥 AJOUT ICI
+    // this.showTaskForm = this.showTaskForm.bind(this);
 
-            showProjectForm: false,
-            showTaskForm: false,
+    this.state = useState({
+        projects: [],
+        tasks: [],
+        users: [],
 
-            mode: "create",
+        showProjectForm: false,
+        showTaskForm: false,
 
-            projectForm: {
-                id: false,
-                name: "",
-                description: "",
-                start_date: "",
-                end_date: "",
-                state: "draft",
-                manager_id: false,
-            },
+        mode: "create",
 
-            taskForm: {
-                name: "",
-                description: "",
-                assigned_to: false,
-                priority: "1",
-                state: "todo",
-            },
-        });
+        projectForm: {
+            id: false,
+            name: "",
+            description: "",
+            start_date: "",
+            end_date: "",
+            state: "draft",
+            manager_id: false,
+        },
 
-        onWillStart(async () => {
-            const projects = await this.orm.searchRead(
-                "society.project",
-                [],
-                ["id", "name", "description", "manager_id", "state", "start_date", "end_date"]
-            );
-
-            const users = await this.orm.searchRead(
-                "res.users",
-                [],
-                ["id", "name"]
-            );
-
-            this.state.projects = projects || [];
-            this.state.users = users || [];
-        });
-    }
-
-    // =========================
-    // TASK FORM
-    // =========================
-    showTaskForm() {
-        this.state.taskForm = {
+        taskForm: {
             name: "",
             description: "",
             assigned_to: false,
             priority: "1",
             state: "todo",
-        };
+        },
+    });
 
-        this.state.showTaskForm = true;
+    onWillStart(async () => {
+        const projects = await this.orm.searchRead(
+            "society.project",
+            [],
+            ["id", "name", "description", "manager_id", "state", "start_date", "end_date"]
+        );
+
+        const users = await this.orm.searchRead(
+            "res.users",
+            [],
+            ["id", "name"]
+        );
+
+        this.state.projects = projects || [];
+        this.state.users = users || [];
+    });
+}
+
+    // =========================
+    // TASK FORM
+    // =========================
+
+//     showTaskForm() {
+//     console.log("OPEN TASK WIZARD");
+//
+//     this.state.taskForm = {
+//         name: "",
+//         description: "",
+//         assigned_to: false,
+//         priority: "1",
+//         state: "todo",
+//     };
+//
+//     this.state.showTaskWizard = true;
+// }
+
+
+    showTaskForm() {
+    console.log("OK FROM PROJECT DASHBOARD");
+
+    this.state.taskForm = {
+        name: "",
+        description: "",
+        assigned_to: false,
+        priority: "1",
+        state: "todo",
+    };
+
+    this.state.showTaskForm = true;
+}
+
+
+    closeTaskForm() {
+        this.state.showTaskForm = false;
     }
 
+    async saveTask() {
+    const data = {
+        name: this.state.taskForm.name,
+        description: this.state.taskForm.description,
+        assigned_to: this.state.taskForm.assigned_to
+            ? parseInt(this.state.taskForm.assigned_to)
+            : false,
+        priority: this.state.taskForm.priority,
+        state: this.state.taskForm.state,
+        project_id: this.state.projectForm.id,
+    };
+
+    await this.orm.create("society.task", [data]);
+
+    this.state.tasks = await this.orm.searchRead(
+        "society.task",
+        [["project_id", "=", this.state.projectForm.id]],
+        ["id", "name", "description", "assigned_to", "priority", "state"]
+    );
+
+    this.state.showTaskForm = false;
+}
     // =========================
     // OPEN PROJECT
     // =========================

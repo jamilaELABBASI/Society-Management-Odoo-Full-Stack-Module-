@@ -44,9 +44,19 @@
         <div>
             <TaskDashboard
                     tasks="props.state.tasks"
-                    showTaskForm="props.showTaskForm"
+                    state="props.state"
+                    showTaskForm.bind="props.showTaskForm"
             />
         </div>
+
+         <!-- TASK WIZARD (OVERLAY) -->
+
+         <!-- ✅ WIZARD ICI (IMPORTANT) -->
+        <TaskForm
+            state="props.state"
+            saveTask.bind="props.saveTask"
+            closeTaskForm.bind="props.closeTaskForm"
+        />
     </div>
 
 

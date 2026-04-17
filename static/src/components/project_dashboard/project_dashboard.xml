@@ -20,6 +20,8 @@
                         showTaskForm.bind="showTaskForm"
                         saveTask.bind="saveTask"
                         closeTaskForm.bind="closeTaskForm"
+                        deleteTask.bind="deleteTask"
+                        editTask.bind="editTask"
                     />
                 </t>
 

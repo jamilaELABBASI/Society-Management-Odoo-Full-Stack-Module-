@@ -6,8 +6,11 @@ class Task(models.Model):
     _description='Task'
     _inherit = ['mail.thread','mail.activity.mixin']
     name=fields.Char(string='Name')
+    description=fields.Text(string='Detail')
     project_id=fields.Many2one('society.project',string='Project')
     assigned_to=fields.Many2one('res.users',string='Assigned To')
+    start_date=fields.Date(string='Start Date')
+    end_date=fields.Date(string='End Date')
     hours_spent=fields.Float(string='Hours Spent')
     cost_spent=fields.Float(string='Cost Spent')
     state=fields.Selection([
@@ -21,7 +24,6 @@ class Task(models.Model):
         ('2','High'),
         ('3','Urgent'),
     ])
-    description=fields.Text(string='Detail')
 
 
 

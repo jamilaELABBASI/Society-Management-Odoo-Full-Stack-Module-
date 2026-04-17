@@ -9,5 +9,6 @@ export class TaskForm extends Component {
         state: Object,
         saveTask: Function,
         closeTaskForm: Function,
+        editTask: Function,
     };
 }

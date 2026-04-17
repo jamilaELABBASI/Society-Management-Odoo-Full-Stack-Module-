@@ -14,6 +14,9 @@ export class ProjectView extends Component {
     showTaskForm: Function,
     saveTask: Function,
     closeTaskForm: Function,
+    deleteTask: Function,
+    editTask: Function,
+
 };
 
 }

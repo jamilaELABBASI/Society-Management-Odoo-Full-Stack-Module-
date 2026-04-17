@@ -4,10 +4,6 @@
         Create Task
     </button>
 
-    <button t-on-click="testClick">
-    Create Task
-</button>
-
     <div id="tasks">
 
         <t t-if="props.tasks?.length">
@@ -27,20 +23,44 @@
 
                     <h1 t-esc="task.name"/>
 
-                    <div>
-                        <i class="fa fa-align-left"></i>
-                        <p t-esc="task.description"/>
-                    </div>
+                     <div>
+                    <i class="fa fa-align-left"></i>
+                    <strong>Description</strong>
+                    <span t-esc="task.description"/>
+                </div>
 
-                    <div>
-                        <i class="fa fa-tasks"></i>
-                        <p t-esc="task.state"/>
-                    </div>
+                <div>
+                  <i class="fa fa-user"></i>
+                    <strong>Manager</strong>
+                    <span t-esc="task.assigned_to[1]"/>
+                </div>
+                <div>
+                  <i class="fa fa-calendar"></i>
+                    <strong>Start Date</strong>
+                    <span t-esc="task.start_date"/>
+                </div>
+                <div>
+                  <i class="fa fa-calendar-check-o"></i>
+                    <strong>End Date</strong>
+                    <span t-esc="task.end_date"/>
+                </div>
+                <div>
+                  <i class="fa fa-tasks"></i>
+                    <strong>Status</strong>
+                    <span t-esc="task.state"/>
+                </div>
 
-                    <div>
-                        <i class="fa fa-user"></i>
-                        <p t-esc="task.assigned_to ? task.assigned_to[1] : ''"/>
-                    </div>
+                    <div id="task_actions">
+
+                                <i class="fa fa-pencil" style="color:orange"
+                                   t-on-click="props.editTask"
+                                   t-att-data-id="task.id"/>
+
+                                <i class="fa fa-trash" style="color:red"
+                                   t-on-click="props.deleteTask"
+                                   t-att-data-id="task.id"/>
+                            </div>
+
 
                 </div>
 

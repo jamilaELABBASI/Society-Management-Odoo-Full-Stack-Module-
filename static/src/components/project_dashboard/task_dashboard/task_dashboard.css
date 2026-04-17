@@ -27,6 +27,8 @@
     box-shadow: 0 0 10px rgba(0,0,0,1);
     border-radius: 10px;
     flex-direction: column;
+    gap: 20px;
+    display: flex;
     text-align: center;
 }
 
@@ -43,7 +45,9 @@
     font-size: 20px;
 }
 
-
+#task_card div strong{
+    width: 80px;
+}
 #task_state{
     justify-content: flex-end;
     display: flex;
@@ -78,7 +82,10 @@
 
 }
 
-
+#task_actions{
+    justify-content: center;
+    display: flex;
+}
 
 
 

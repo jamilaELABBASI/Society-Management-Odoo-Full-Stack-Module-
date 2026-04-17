@@ -6,29 +6,48 @@
             <div id="modal_overlay">
                 <div id="modal">
 
-                    <h2>Create Task</h2>
+                    <h2>
+                        <t t-if="props.state.taskMode === 'create'">Create Task</t>
+                        <t t-else="">Edit Task</t>
+                    </h2>
 
                     <input type="text"
                            placeholder="Task Name"
                            t-model="props.state.taskForm.name"/>
 
-                    <textarea placeholder="Description"
-                              t-model="props.state.taskForm.description"/>
+                    <div id="dates">
+                        <input type="date" t-model="props.state.taskForm.start_date"/>
+                        <input type="date" t-model="props.state.taskForm.end_date"/>
+                    </div>
+
+                    <select t-model="props.state.taskForm.state">
+                        <option value="todo">To Do</option>
+                        <option value="pending">Pending</option>
+                        <option value="done">Done</option>
+                    </select>
+
+                    <select t-model="props.state.taskForm.priority">
+                        <option value="0">Low</option>
+                        <option value="1">Normal</option>
+                        <option value="2">High</option>
+                        <option value="3">Urgent</option>
+                    </select>
 
                     <select t-model="props.state.taskForm.assigned_to">
                         <option value="false">Assigned to</option>
-
                         <t t-foreach="props.state.users" t-as="user" t-key="user.id">
                             <option t-att-value="user.id">
                                 <t t-esc="user.name"/>
                             </option>
                         </t>
-
                     </select>
 
-                    <div class="buttons">
-                        <button t-on-click="props.saveTask">Save Task</button>
-                        <button t-on-click="props.closeTaskForm">Cancel</button>
+                    <textarea placeholder="Description"
+                              t-model="props.state.taskForm.description"/>
+
+                    <div id="buttons">
+                        <button id="button_save" t-on-click="props.saveTask">Save</button>
+                        <button id="button_cancel" t-on-click="props.closeTaskForm">Cancel</button>
                     </div>
 
                 </div>

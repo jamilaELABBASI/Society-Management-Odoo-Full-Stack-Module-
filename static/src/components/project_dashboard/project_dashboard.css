@@ -38,14 +38,16 @@
 
 
 .project_card{
+    margin: 10px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,1);
+    border-radius: 10px;
     display:flex;
     flex-direction:column;
     gap:5px;
     width:350px;
     height:200px;
-    border:solid 4px;
-    border-radius:10px;
-    padding:10px;
     word-wrap:break-word; /* retourner le text a la ligne quand il depasse la taille du div */
     overflow-wrap:break-word; /* retourner le text a la ligne quand il depasse la taille du div */
 }

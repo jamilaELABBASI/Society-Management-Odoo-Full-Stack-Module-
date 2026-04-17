@@ -21,7 +21,7 @@
                 <div>
                   <i class="fa fa-user"></i>
                     <strong>Manager</strong>
-                    <span t-esc="props.state.projectForm.manager_name"/>
+                    <span t-esc="props.state.projectForm.manager.name"/>
                 </div>
                 <div>
                   <i class="fa fa-calendar"></i>
@@ -46,6 +46,8 @@
                     tasks="props.state.tasks"
                     state="props.state"
                     showTaskForm.bind="props.showTaskForm"
+                    deleteTask.bind="props.deleteTask"
+                    editTask.bind="props.editTask"
             />
         </div>
 

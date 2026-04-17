@@ -9,9 +9,9 @@ export class TaskDashboard extends Component {
         tasks: Array,
         state: Object,              // ✅ IMPORTANT
         showTaskForm: Function,
+        deleteTask: Function,
+        editTask: Function,
     };
 
-     testClick() {
-        alert("CLICK OK ✅");
-    }
+
 }

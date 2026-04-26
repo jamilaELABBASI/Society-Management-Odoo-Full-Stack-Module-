@@ -1,77 +1,84 @@
+<templates xml:space="preserve">
+
 <t t-name="society_management.task_dashboard">
+        <h1>task Dashboard</h1>
+<!--    <div class="header">-->
+<!--        <button t-on-click="props.showTaskForm">-->
+<!--            New Task-->
+<!--        </button>-->
+<!--    </div>-->
 
-    <button id="create_task" t-on-click="props.showTaskForm">
-        Create Task
-    </button>
+<!--    &lt;!&ndash; ================= STATS ================= &ndash;&gt;-->
+<!--    <div class="stats_container">-->
 
-    <div id="tasks">
+<!--        <div class="stat_card total_draft">-->
+<!--            <div class="icon"><i class="fa fa-file-text-o"></i></div>-->
+<!--            <div class="info">-->
+<!--                <span class="label">Draft</span>-->
+<!--                <span class="number">-->
+<!--                    <t t-esc="props.statsTask.draft"/>-->
+<!--                </span>-->
+<!--            </div>-->
+<!--        </div>-->
 
-        <t t-if="props.tasks?.length">
+<!--        <div class="stat_card total_progress">-->
+<!--            <div class="icon"><i class="fa fa-spinner"></i></div>-->
+<!--            <div class="info">-->
+<!--                <span class="label">In Progress</span>-->
+<!--                <span class="number">-->
+<!--                    <t t-esc="props.statsTask.progress"/>-->
+<!--                </span>-->
+<!--            </div>-->
+<!--        </div>-->
 
-            <t t-foreach="props.tasks" t-as="task" t-key="task.id">
+<!--        <div class="stat_card total_done">-->
+<!--            <div class="icon"><i class="fa fa-check"></i></div>-->
+<!--            <div class="info">-->
+<!--                <span class="label">Done</span>-->
+<!--                <span class="number">-->
+<!--                    <t t-esc="props.statsTask.done"/>-->
+<!--                </span>-->
+<!--            </div>-->
+<!--        </div>-->
 
-                <div id="task_card">
+<!--    </div>-->
 
-                    <div id="task_state">
-                        <span t-att-class="'state_' + task.priority">
-                            <t t-if="task.priority == '0'">Low</t>
-                            <t t-if="task.priority == '1'">Normal</t>
-                            <t t-if="task.priority == '2'">High</t>
-                            <t t-if="task.priority == '3'">Urgent</t>
-                        </span>
-                    </div>
+<!--    &lt;!&ndash; ================= TASK LIST ================= &ndash;&gt;-->
+<!--    <div>-->
 
-                    <h1 t-esc="task.name"/>
+<!--        <t t-if="props.tasks &amp;&amp; props.tasks.length">-->
 
-                     <div>
-                    <i class="fa fa-align-left"></i>
-                    <strong>Description</strong>
-                    <span t-esc="task.description"/>
-                </div>
+<!--            <t t-foreach="props.tasks" t-as="task" t-key="task.id">-->
 
-                <div>
-                  <i class="fa fa-user"></i>
-                    <strong>Manager</strong>
-                    <span t-esc="task.assigned_to[1]"/>
-                </div>
-                <div>
-                  <i class="fa fa-calendar"></i>
-                    <strong>Start Date</strong>
-                    <span t-esc="task.start_date"/>
-                </div>
-                <div>
-                  <i class="fa fa-calendar-check-o"></i>
-                    <strong>End Date</strong>
-                    <span t-esc="task.end_date"/>
-                </div>
-                <div>
-                  <i class="fa fa-tasks"></i>
-                    <strong>Status</strong>
-                    <span t-esc="task.state"/>
-                </div>
+<!--                <div class="task_card">-->
 
-                    <div id="task_actions">
+<!--                    <h3 t-esc="task.name"/>-->
+<!--                    <p t-esc="task.description"/>-->
 
-                                <i class="fa fa-pencil" style="color:orange"
-                                   t-on-click="props.editTask"
-                                   t-att-data-id="task.id"/>
+<!--                    <div class="task_actions">-->
 
-                                <i class="fa fa-trash" style="color:red"
-                                   t-on-click="props.deleteTask"
-                                   t-att-data-id="task.id"/>
-                            </div>
+<!--                        <i class="fa fa-pencil icon"-->
+<!--                           t-on-click="props.editTask"-->
+<!--                           t-att-data-id="task.id"/>-->
 
+<!--                        <i class="fa fa-trash icon"-->
+<!--                           t-on-click="props.deleteTask"-->
+<!--                           t-att-data-id="task.id"/>-->
 
-                </div>
+<!--                    </div>-->
 
-            </t>
+<!--                </div>-->
 
-        </t>
+<!--            </t>-->
 
-        <t t-else="">
-            <p>No tasks</p>
-        </t>
+<!--        </t>-->
 
-    </div>
+<!--        <t t-else="">-->
+<!--            <p>No tasks found</p>-->
+<!--        </t>-->
+
+<!--    </div>-->
 
 </t>
+
+</templates>

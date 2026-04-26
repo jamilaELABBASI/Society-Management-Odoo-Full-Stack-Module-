@@ -1,59 +1,65 @@
 <templates xml:space="preserve">
 
     <t t-name="society_management.task_form">
+        <h1>task Form</h1>
 
-        <t t-if="props.state.showTaskForm">
-            <div id="modal_overlay">
-                <div id="modal">
+<!--            <div id="modal_overlay">-->
+<!--                <div id="modal">-->
 
-                    <h2>
-                        <t t-if="props.state.taskMode === 'create'">Create Task</t>
-                        <t t-else="">Edit Task</t>
-                    </h2>
+<!--                    <h2>-->
+<!--                        <t t-if="props.state.taskMode == 'create'">Create Task</t>-->
+<!--                        <t t-else="">Edit Task</t>-->
+<!--                    </h2>-->
 
-                    <input type="text"
-                           placeholder="Task Name"
-                           t-model="props.state.taskForm.name"/>
+<!--                    <input type="text"-->
+<!--                           placeholder="Task Name"-->
+<!--                           t-model="props.state.taskForm.name"/>-->
 
-                    <div id="dates">
-                        <input type="date" t-model="props.state.taskForm.start_date"/>
-                        <input type="date" t-model="props.state.taskForm.end_date"/>
-                    </div>
+<!--                    <textarea placeholder="Description"-->
+<!--                              t-model="props.state.taskForm.description"/>-->
 
-                    <select t-model="props.state.taskForm.state">
-                        <option value="todo">To Do</option>
-                        <option value="pending">Pending</option>
-                        <option value="done">Done</option>
-                    </select>
+<!--                    <select t-model="props.state.taskForm.assigned_to">-->
+<!--                        <option t-att-value="false">Assigned to</option>-->
+<!--                        <t t-foreach="props.state.users" t-as="user" t-key="user.id">-->
+<!--                            <option t-att-value="user.id">-->
+<!--                                <t t-esc="user.name"/>-->
+<!--                            </option>-->
+<!--                        </t>-->
+<!--                    </select>-->
 
-                    <select t-model="props.state.taskForm.priority">
-                        <option value="0">Low</option>
-                        <option value="1">Normal</option>
-                        <option value="2">High</option>
-                        <option value="3">Urgent</option>
-                    </select>
+<!--                    <div id="dates">-->
+<!--                        <div>-->
+<!--                            <h3>Start date</h3>-->
+<!--                            <input type="date" t-model="props.state.taskForm.start_date"/>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <h3>End date</h3>-->
+<!--                            <input type="date" t-model="props.state.taskForm.end_date"/>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
-                    <select t-model="props.state.taskForm.assigned_to">
-                        <option value="false">Assigned to</option>
-                        <t t-foreach="props.state.users" t-as="user" t-key="user.id">
-                            <option t-att-value="user.id">
-                                <t t-esc="user.name"/>
-                            </option>
-                        </t>
-                    </select>
+<!--                    <select t-model="props.state.taskForm.state">-->
+<!--                        <option value="todo">To Do</option>-->
+<!--                        <option value="pending">Pending</option>-->
+<!--                        <option value="done">Done</option>-->
+<!--                    </select>-->
 
-                    <textarea placeholder="Description"
-                              t-model="props.state.taskForm.description"/>
+<!--                    <select t-model="props.state.taskForm.priority">-->
+<!--                        <option value="0">Low</option>-->
+<!--                        <option value="1">Normal</option>-->
+<!--                        <option value="2">High</option>-->
+<!--                        <option value="3">Urgent</option>-->
+<!--                    </select>-->
 
-                    <div id="buttons">
-                        <button id="button_save" t-on-click="props.saveTask">Save</button>
-                        <button id="button_cancel" t-on-click="props.closeTaskForm">Cancel</button>
-                    </div>
+<!--                    <div id="buttons">-->
+<!--                        <button id="button_save" t-on-click="props.saveTask">Save</button>-->
+<!--                        <button id="button_cancel" t-on-click="props.closeTaskForm">Cancel</button>-->
+<!--                    </div>-->
 
-                </div>
-            </div>
+<!--                </div>-->
+<!--            </div>-->
         </t>
 
-    </t>
+
 
 </templates>

@@ -1,81 +1,167 @@
 <templates xml:space="preserve">
-    <t t-name="society_management.project_dashboard_tag">
-        <div class="project_dashboard">
 
-            <!-- HEADER -->
-            <div class="header" t-if="!state.showProjectForm">
+<t t-name="society_management.project_dashboard_tag">
+
+    <div class="project_dashboard">
+
+        <!-- ================= LIST ================= -->
+        <t t-if="state.projectMode == 'list'">
+
+            <div class="header">
                 <h1>Project Dashboard</h1>
-                <button class="create_project" t-on-click="showProjectForm">
-                    Create New Project
-                </button>
+
+                <div class="filters">
+
+                    <button class="create_project" t-on-click="showProjectForm">
+                        New Project
+                    </button>
+
+                     <!-- SEARCH -->
+                    <input placeholder="Search project..." t-model="state.search"/>
+
+                    <!-- FILTER STATUS -->
+                    <button t-att-class="state.statusFilter === 'all' ? 'active' : ''"
+                        t-on-click="() => setStatusFilter('all')">
+                        All
+                    </button>
+                    <button t-att-class="state.statusFilter === 'draft' ? 'active' : ''"
+                            t-on-click="() => setStatusFilter('draft')">
+                            Draft</button>
+                    <button t-att-class="state.statusFilter === 'progress' ? 'active' : ''"
+                            t-on-click="() => setStatusFilter('progress')">In Progress</button>
+                    <button t-att-class="state.statusFilter === 'done' ? 'active' : ''"
+                            t-on-click="() => setStatusFilter('done')">Done</button>
+                    <button t-att-class="state.statusFilter === 'cancel' ? 'active' : ''"
+                        t-on-click="() => setStatusFilter('cancel')">Cancelled</button>
+                </div>
+
+                <!-- ================= PROJECT STATS ================= -->
+                <div class="stats_container">
+
+                    <div class="stat_card total_tasks">
+                        <div class="icon"><i class="fa fa-file-text-o"/></div>
+                        <div class="info">
+                            <span class="label">All Tasks</span>
+                            <span class="number"><t t-esc="projectStats.all"/></span>
+                        </div>
+                    </div>
+
+                    <div class="stat_card total_draft">
+                        <div class="icon"><i class="fa fa-file-text-o"/></div>
+                        <div class="info">
+                            <span class="label">Draft</span>
+                            <span class="number"><t t-esc="projectStats.draft"/></span>
+                        </div>
+                    </div>
+
+                    <div class="stat_card total_progress">
+                        <div class="icon"><i class="fa fa-spinner"/></div>
+                        <div class="info">
+                            <span class="label">Progress</span>
+                            <span class="number"><t t-esc="projectStats.progress"/></span>
+                        </div>
+                    </div>
+
+                    <div class="stat_card total_done">
+                        <div class="icon"><i class="fa fa-check"/></div>
+                        <div class="info">
+                            <span class="label">Done</span>
+                            <span class="number"><t t-esc="projectStats.done"/></span>
+                        </div>
+                    </div>
+
+                    <div class="stat_card total_cancel">
+                        <div class="icon"><i class="fa fa-times"/></div>
+                        <div class="info">
+                            <span class="label">Cancel</span>
+                            <span class="number"><t t-esc="projectStats.cancel"/></span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- FORMULAIRE -->
-            <t t-if="state.showProjectForm">
+            <!-- ================= PROJECT LIST ================= -->
 
-                <t t-if="state.mode=='view'">
-                    <ProjectView
-                        state="state"
-                        hideCreateForm.bind="hideCreateForm"
-                        showTaskForm.bind="showTaskForm"
-                        saveTask.bind="saveTask"
-                        closeTaskForm.bind="closeTaskForm"
-                        deleteTask.bind="deleteTask"
-                        editTask.bind="editTask"
-                    />
-                </t>
+            <div class="body">
+                <t t-if="state.projects and state.projects.length">
 
-                <t t-else="">
-                    <ProjectForm
-                        state="state"
-                        users="state.users"
-                        saveProject.bind="saveProject"
-                        hideCreateForm.bind="hideCreateForm"
-                        editProject.bind="editProject"
-                    />
-                </t>
+                    <t t-foreach="filteredProjects" t-as="project" t-key="project.id">
 
-            </t>
-
-            <!-- LIST PROJECT -->
-            <t t-else="">
-                <div class="body">
-
-                    <t t-foreach="state.projects" t-as="project" t-key="project.id">
                         <div class="project_card">
 
+                            <!-- ✅ STATUS -->
                             <div class="project_state">
-                                <span t-att-class="'state_'+project.state">
-                                    <t t-if="project.state == 'draft'">To Do</t>
-                                    <t t-if="project.state == 'progress'">In Progress</t>
-                                    <t t-if="project.state == 'done'">Done</t>
-                                    <t t-if="project.state == 'cancel'">Cancelled</t>
+                                <span t-att-class="'state_' + project.state">
+                                    <t t-esc="project.state"/>
                                 </span>
                             </div>
 
+                            <!-- ✅ NAME -->
                             <h2 t-esc="project.name"/>
 
+                            <!-- ACTIONS -->
                             <div class="project_actions">
+
                                 <i class="fa fa-eye icon"
+                                   t-att-data-id="project.id"
                                    t-on-click="openProject"
-                                   t-att-data-id="project.id"/>
+                                />
 
                                 <i class="fa fa-pencil icon"
+                                   t-att-data-id="project.id"
                                    t-on-click="editProject"
-                                   t-att-data-id="project.id"/>
+                                />
 
                                 <i class="fa fa-trash icon"
+                                   t-att-data-id="project.id"
                                    t-on-click="deleteProject"
-                                   t-att-data-id="project.id"/>
+                                />
+
                             </div>
 
                         </div>
+
                     </t>
 
-                </div>
-            </t>
+                </t>
+
+                <t t-else="">
+                    <p>No projects found</p>
+                </t>
+            </div>
 
 
-        </div>
-    </t>
+        </t>
+
+        <!-- ================= VIEW PROJECT ================= -->
+        <t t-if="state.projectMode == 'view'">
+            <ProjectView
+            state="state"
+            tasks="state.tasks"
+            />
+        </t>
+
+<!--        state="state"-->
+<!--                tasks="state.tasks"-->
+<!--                statsTask="statsTask"-->
+<!--                showTaskForm.bind="showTaskForm"-->
+<!--                saveTask.bind="saveTask"-->
+<!--                editTask.bind="editTask"-->
+<!--                deleteTask.bind="deleteTask"-->
+<!--                closeTaskForm.bind="closeTaskForm"-->
+        <!-- ================= FORM ================= -->
+        <t t-if="state.projectMode == 'create'|| state.projectMode == 'edit'">
+            <ProjectForm
+                state="state"
+                users="state.users"
+                hideProjectForm.bind="hideProjectForm"
+                saveProject.bind="saveProject"
+
+            />
+        </t>
+
+    </div>
+
+</t>
+
 </templates>

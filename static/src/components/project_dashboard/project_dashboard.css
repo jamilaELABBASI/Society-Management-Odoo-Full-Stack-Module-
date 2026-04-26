@@ -1,9 +1,16 @@
-.header h1{
+.project_dashboard h1{
     text-align:center;
     font-weight:bold;
     font-size:40px;
 }
 
+.header{
+    margin: auto;
+    display: flex;
+    text-align: center;
+    gap: 20px;
+    flex-direction: column;
+}
 
 .project_dashboard{
     margin:40px;
@@ -13,18 +20,33 @@
     height:100vh;
 }
 
-.create_project{
-    background-color:#238DC2;
-    border:solid 2px #238DC2;
+.filters .create_project{
+    background-color:#00b894;
+    border:solid 2px #00b894;
     color:white;
     border-radius:10px;
     font-size:14px;
     width:150px;
-    height:40px;
+    height:50px;
     font-weight:bold;
-    margin-top: 40px;
     }
+.header input{
+    background-color:#238DC2;
+    border:solid 2px #238DC2;
+    color:#238DC2;
+    border-radius:10px;
+    font-size:14px;
+    width:200px;
+    height:50px;
+    font-weight:bold;
+}
+.header input::placeholder {
+    color: white;
+}
 
+.header input:focus::placeholder{
+    color:#238DC2;
+}
 
 .body {
     display: grid;
@@ -53,7 +75,7 @@
 }
 
 .project_card h2{
-    text-align:center;
+    text-align:justify;
     font-size:25px;
     font-weight:bold;
 }
@@ -82,15 +104,19 @@
 }
 
 .state_draft{
-    background-color:red;
+    background-color:#6c5ce7;
 }
 
 .state_progress{
-    background-color:orange;
+    background-color: #0984e3;
 }
 
 .state_done{
-    background-color:green;
+    background-color:#00b894;
+}
+
+.state_cancel{
+    background-color:#d63031;
 }
 
 .project_actions{
@@ -104,15 +130,7 @@
     font-size:20px;
 }
 
-.stat_card{
-    width:400px;
-    height:40px;
-    padding:10px;
-    border-radius:10px;
-    align-items:center;
-    justify-content:center;
-    display:flex;
-}
+
 
 .space-right{
     margin-right:10px;
@@ -121,4 +139,110 @@
 .stat_card strong, .stat_card span, .stat_card i{
     color:white;
 }
+
+
+.stats_container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    margin: auto;
+}
+
+.stat_card {
+    width: 200px;
+    background: white;
+    border-radius: 16px;
+    /*padding: 20px;*/
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.stat_card:hover {
+    transform: translateY(-20px);
+}
+
+/* ICON */
+.stat_card .icon {
+    font-size: 22px;
+    padding: 12px;
+    border-radius: 12px;
+    color: white;
+}
+
+/* TEXT */
+.stat_card .number {
+    font-size: 22px;
+    font-weight: bold;
+    color: black;
+}
+
+.stat_card .label {
+    font-size: 20px;
+    color: gray;
+}
+
+.stat_card .info{
+    display: flex;
+    gap: 20px;
+    text-align: center;
+}
+/* COLORS */
+
+.total .icon {
+    background: #6c5ce7;
+}
+
+.total_tasks .icon{
+    background: #4dc6fb;
+}
+.total_draft .icon {
+    background: #6c5ce7;
+}
+
+.total_progress .icon {
+    background: #0984e3;
+}
+
+.total_done .icon {
+    background: #00b894;
+}
+
+
+.total_cancel .icon {
+    background: #d63031;
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+    margin: auto;
+
+}
+
+.filters button {
+    /*padding: 6px 12px;*/
+    height: 50px;
+    width: 100px;
+    border-radius: 20px;
+    border: none;
+    background: #eee;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.filters button.active {
+    background: #6c5ce7;
+    color: white;
+}
+
+/*.filters button:not(.create_project):hover {*/
+/*    background: #dfe6e9;*/
+/*    color:#6c5ce7;*/
+/*}*/
+
+
+
 

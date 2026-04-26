@@ -24,6 +24,7 @@ class Project(models.Model):
         string='Manager',
         # domain="[('groups_id','in',[manager_group_id])]"
     )
+
     start_date=fields.Date(string='Start Date')
     end_date=fields.Date(string='End Date')
     state=fields.Selection([
@@ -211,9 +212,9 @@ class Project(models.Model):
     """
 
     def unlink(self):
-        for record in self:
-            if record.state == 'cancel':
-                raise UserError("Impossible de supprimer le projet est cancelled.")
+        # for record in self:
+        #     if record.state == 'cancel':
+        #         raise UserError("Impossible de supprimer le projet est cancelled.")
         return super().unlink()
 
     def _compute_task_count(self):
@@ -279,4 +280,5 @@ class Project(models.Model):
                 else:
                     rec.progress=0
     """
+
 

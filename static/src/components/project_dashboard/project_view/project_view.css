@@ -1,3 +1,15 @@
+#body {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+    padding-bottom:100px;
+    overflow-y:auto; /* ajouter bar scrolling */
+    height:100vh;   /* ajouter bar scrolling */
+    flex:1;
+}
+
+
+
 #view_project{
     overflow-y:auto ;
     height: 100vh;
@@ -17,7 +29,7 @@
     display: flex;
     gap: 20px;
     justify-content: center;
-    text-align: center;
+    text-align: justify;
     width: 100%;
     max-width: 900px;
     position: relative;

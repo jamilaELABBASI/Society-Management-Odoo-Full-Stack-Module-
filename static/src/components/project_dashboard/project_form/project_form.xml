@@ -1,7 +1,10 @@
 <t t-name="society_management.project_form">
     <div class="form_container">
         <div class="form">
-
+            <h2>
+                <t t-if="props.state.projectMode == 'create'">Create Project</t>
+                <t t-else="">Edit Project</t>
+            </h2>
             <input type="text"
                    placeholder="Project Name"
                    t-model="props.state.projectForm.name"/>
@@ -11,19 +14,24 @@
 
             <select t-model="props.state.projectForm.manager_id">
                 <option value="false">Select Manager</option>
-                <t t-foreach="props.users" t-as="user" t-key="user.id">
+                <t t-if="props.users">
+                    <t t-foreach="props.users" t-as="user" t-key="user.id">
                     <option t-att-value="user.id">
                         <t t-esc="user.name"/>
                     </option>
                 </t>
+                </t>
             </select>
 
             <div class="dates">
-                <input type="date"
-                       t-model="props.state.projectForm.start_date"/>
-
-                <input type="date"
-                       t-model="props.state.projectForm.end_date"/>
+                    <div>
+                        <h3>Start date</h3>
+                        <input type="date" t-model="props.state.projectForm.start_date"/>
+                    </div>
+                    <div>
+                        <h3>End date</h3>
+                        <input type="date" t-model="props.state.projectForm.end_date"/>
+                    </div>
             </div>
 
             <select t-model="props.state.projectForm.state">
@@ -35,7 +43,7 @@
 
             <div class="buttons">
                 <button class="button_save" t-on-click="props.saveProject">Save</button>
-                <button class="button_cancel" t-on-click="props.hideCreateForm">Cancel</button>
+                <button class="button_cancel" t-on-click="props.hideProjectForm">Cancel</button>
             </div>
 
         </div>

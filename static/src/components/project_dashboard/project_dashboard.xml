@@ -102,17 +102,17 @@
                             <!-- ACTIONS -->
                             <div class="project_actions">
 
-                                <i class="fa fa-eye icon"
+                                <i class="fa fa-eye icon eye_icon"
                                    t-att-data-id="project.id"
                                    t-on-click="openProject"
                                 />
 
-                                <i class="fa fa-pencil icon"
+                                <i class="fa fa-pencil icon pencil_icon"
                                    t-att-data-id="project.id"
                                    t-on-click="editProject"
                                 />
 
-                                <i class="fa fa-trash icon"
+                                <i class="fa fa-trash icon trash_icon"
                                    t-att-data-id="project.id"
                                    t-on-click="deleteProject"
                                 />

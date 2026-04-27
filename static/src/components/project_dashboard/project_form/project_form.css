@@ -101,24 +101,24 @@ select:focus {
 }
 
 .button_save{
-    background-color:green;
-    border-color:green
+    background-color:#00b894;
+    border-color:#00b894
 }
 .button_save:hover{
  background-color: white; /* couleur du fond */
-    border: 2px solid green; /* bordure */
-    color:green;
+    border: 2px solid #00b894; /* bordure */
+    color:#00b894;
     }
 
 .button_cancel{
-    background-color:red;
-    border-color:red;
+    background-color:#d63031;
+    border-color:#d63031;
 
 }
 .button_cancel:hover{
     background-color: white; /* couleur du fond */
-    border: 2px solid red; /* bordure */
-    color:red;
+    border: 2px solid #d63031; /* bordure */
+    color:#d63031;
 }
 
 

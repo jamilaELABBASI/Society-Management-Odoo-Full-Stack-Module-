@@ -8,8 +8,27 @@
     flex:1;
 }
 
+.header div {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+    padding: 15px 0;
+}
 
+/* bouton à gauche */
+.header div .btn_back {
+    position: absolute;
+    left: 0;
+}
+
+/* titre parfaitement centré */
+.header div h1 {
+    margin: 0;
+}
+
+/*
 #view_project{
     overflow-y:auto ;
     height: 100vh;
@@ -80,10 +99,7 @@
     font-size: 30px;
 }
 
-#view div span{
 
-    /*margin-right: 40px;*/
-}
 
 .modal_overlay {
     position: fixed;
@@ -100,8 +116,6 @@
 
     z-index: 9999;
 }
-
-/* 🔥 IMPORTANT */
 .modal {
     background: white;
     padding: 25px;
@@ -110,14 +124,13 @@
     width: 400px;
     max-width: 90%;
 
-    display: block;   /* 🔥 force affichage */
+    display: block;
     position: relative;
 
-    color: black;     /* 🔥 éviter texte invisible */
+    color: black;
 
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
+}  */
 
 .task_card {
     background: #ffffff;
@@ -206,12 +219,36 @@
     transition: 0.2s;
 }
 
-.action.edit{
-    color: orange;
+
+
+.btn_back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    background: #000000;
+    color: #ffffff;
+
+    border-radius: 10px;
+
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.action.delete {
-    color: #dc3545;
+/* hover */
+.btn_back:hover {
+    background: #ffffff;
+    border: 2px solid #000000;
+    color:black;
+    transform: translateY(-1px);
+
 }
 
-
+/* click */
+.btn_back:active {
+    transform: scale(0.97);
+}

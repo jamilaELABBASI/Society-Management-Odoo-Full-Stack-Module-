@@ -108,15 +108,15 @@
     color:white;
 }
 
-.fa-eye .icon{
+.eye_icon{
     color:#0984e3;
 }
 
-.fa-pencil .icon{
+.pencil_icon{
     color:orange;
 }
 
-.fa-trash .icon{
+.trash_icon{
     color: red;
 }
 
@@ -259,6 +259,14 @@
     color: white;
 }
 
+.empty_state {
+    text-align: center;
+    margin-top: 40px;
+
+    color: #888;
+    font-size: 16px;
+    font-weight: 500;
+}
 /*.filters button:not(.create_project):hover {*/
 /*    background: #dfe6e9;*/
 /*    color:#6c5ce7;*/

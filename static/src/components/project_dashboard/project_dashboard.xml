@@ -126,7 +126,7 @@
                 </t>
 
                 <t t-else="">
-                    <p>No projects found</p>
+                    <p class="empty_state">No projects found</p>
                 </t>
             </div>
 

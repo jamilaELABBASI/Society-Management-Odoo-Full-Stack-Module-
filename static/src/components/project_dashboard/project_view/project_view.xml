@@ -176,7 +176,7 @@
         </t>
 
         <t t-else="">
-            <p>No tasks found</p>
+            <p class="empty_state">No tasks found</p>
         </t>
 
     </div>

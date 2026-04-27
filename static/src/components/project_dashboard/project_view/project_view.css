@@ -119,38 +119,99 @@
 }
 
 
+.task_card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 16px;
+    margin: 12px;
+    width: 280px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transition: 0.3s;
+    display: inline-block;
+    vertical-align: top;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.task_card:hover {
+    transform: translateY(-5px);
+}
+
+/* HEADER */
+.task_header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+/* BADGES */
+.badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    color: white;
+}
+
+/* PRIORITY COLORS */
+.priority_0 { background: #6c757d; }   /* grey */
+.priority_1 { background: #17a2b8; }   /* blue */
+.priority_2 { background: #ffc107; }   /* yellow */
+.priority_3 { background: #dc3545; }   /* red */
+
+/* STATE COLORS */
+.state_todo { background: #4dc6fb; }
+.state_pending { background: #fd7e14; }
+.state_done { background: #28a745; }
+
+/* TITLE */
+.task_title {
+    margin: 10px 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* DESCRIPTION */
+.task_desc {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* INFO */
+.task_info {
+    font-size: 18px;
+    color: #777;
+}
+
+.info_item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 5px;
+}
+
+/* ACTIONS */
+.task_actions {
+    /*margin-top: 12px;*/
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+}
+
+.action {
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.action.edit{
+    color: orange;
+}
+
+.action.delete {
+    color: #dc3545;
+}
 
 
-
-/* #view_container{*/
-
-/*     margin: 10vh auto;*/
-/* }*/
-
-
-/* #view{*/
-
-/*     display: flex;*/
-/*        gap: 20px;*/
-/*     align-items: flex-start;*/
-/* }*/
-
-/* #icons i{*/
-/*     font-size: 20px;*/
-/* }*/
-
-/* #icons,#labels,#values{*/
-/*flex-direction: column;*/
-/*display: flex;*/
-/*     gap: 20px;*/
-
-
-/* }*/
-
-
-
-
-
-/*#view_container{*/
-/*    margin: 5vh auto;*/
-/*}*/

@@ -17,21 +17,21 @@
                     </button>
 
                      <!-- SEARCH -->
-                    <input placeholder="Search project..." t-model="state.search"/>
+                    <input placeholder="Search project..." t-model="state.searchProject"/>
 
                     <!-- FILTER STATUS -->
-                    <button t-att-class="state.statusFilter === 'all' ? 'active' : ''"
+                    <button t-att-class="state.statusProjectFilter === 'all' ? 'active' : ''"
                         t-on-click="() => setStatusFilter('all')">
                         All
                     </button>
-                    <button t-att-class="state.statusFilter === 'draft' ? 'active' : ''"
+                    <button t-att-class="state.statusProjectFilter === 'draft' ? 'active' : ''"
                             t-on-click="() => setStatusFilter('draft')">
                             Draft</button>
-                    <button t-att-class="state.statusFilter === 'progress' ? 'active' : ''"
+                    <button t-att-class="state.statusProjectFilter === 'progress' ? 'active' : ''"
                             t-on-click="() => setStatusFilter('progress')">In Progress</button>
-                    <button t-att-class="state.statusFilter === 'done' ? 'active' : ''"
+                    <button t-att-class="state.statusProjectFilter === 'done' ? 'active' : ''"
                             t-on-click="() => setStatusFilter('done')">Done</button>
-                    <button t-att-class="state.statusFilter === 'cancel' ? 'active' : ''"
+                    <button t-att-class="state.statusProjectFilter === 'cancel' ? 'active' : ''"
                         t-on-click="() => setStatusFilter('cancel')">Cancelled</button>
                 </div>
 
@@ -39,7 +39,7 @@
                 <div class="stats_container">
 
                     <div class="stat_card total_tasks">
-                        <div class="icon"><i class="fa fa-file-text-o"/></div>
+                        <div class="icon"><i class="fa fa-th"></i></div>
                         <div class="info">
                             <span class="label">All Tasks</span>
                             <span class="number"><t t-esc="projectStats.all"/></span>
@@ -137,7 +137,15 @@
         <t t-if="state.projectMode == 'view'">
             <ProjectView
             state="state"
-            tasks="state.tasks"
+            tasks="filteredTasks"
+            showTaskForm.bind="showTaskForm"
+            hideTaskForm.bind="hideTaskForm"
+            saveTask.bind="saveTask"
+            editTask.bind="editTask"
+            deleteTask.bind="deleteTask"
+            setTaskFilter.bind="setTaskFilter"
+            taskStats="taskStats"
+
             />
         </t>
 
@@ -145,7 +153,7 @@
 <!--                tasks="state.tasks"-->
 <!--                statsTask="statsTask"-->
 <!--                showTaskForm.bind="showTaskForm"-->
-<!--                saveTask.bind="saveTask"-->
+
 <!--                editTask.bind="editTask"-->
 <!--                deleteTask.bind="deleteTask"-->
 <!--                closeTaskForm.bind="closeTaskForm"-->

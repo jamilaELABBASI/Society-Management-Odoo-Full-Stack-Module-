@@ -5,7 +5,7 @@ import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 
 import { ProjectForm } from "./project_form/project_form";
-import {ProjectView} from "./project_view/project_view";
+import { ProjectView } from "./project_view/project_view";
 
 class ProjectDashboard extends Component {
 
@@ -17,11 +17,14 @@ class ProjectDashboard extends Component {
 
         this.state = useState({
             projectMode: "list",
+            taskMode: null,
             users: [],
             projects: [],
             tasks:[],
-            search: "",
-            statusFilter:"all",
+            searchProject: "",
+            searchTask: "",
+            statusProjectFilter:"all",
+            taskStatusFilter: "all",
             projectForm: {
                 name: "",
                 description: "",
@@ -29,7 +32,18 @@ class ProjectDashboard extends Component {
                 start_date: "",
                 end_date: "",
                 state: "draft",
-            }
+            },
+            taskForm: {
+                name: "",
+                description: "",
+                assigned_to: false,
+                start_date: "",
+                end_date: "",
+                state: "todo",
+                priority: "0",
+            },
+
+
         });
 
         onWillStart(async () => {
@@ -48,11 +62,21 @@ class ProjectDashboard extends Component {
     }
 
 
-    ////////////////////////////Projects //////////////////////
+    //********************************************Projects********************************************
 
     showProjectForm = () => {
-        this.state.projectMode = "create";
+    this.state.projectForm = {
+        id: false,
+        name: "",
+        description: "",
+        manager_id: false,
+        start_date: "",
+        end_date: "",
+        state: "draft",
     };
+
+    this.state.projectMode = "create";
+};
 
     hideProjectForm = () => {
         this.state.projectMode = "list";
@@ -68,7 +92,7 @@ class ProjectDashboard extends Component {
     this.state.tasks = await this.orm.searchRead(
         "society.task",
         [["project_id", "=", id]],
-        ["id", "name", "description", "state","priority","start_date","end_date"]
+        ["id", "name", "description", "state","priority","start_date","end_date","assigned_to"]
     );
 
     this.state.projectMode = "view";
@@ -135,30 +159,30 @@ class ProjectDashboard extends Component {
 };
 
     get filteredProjects() {
-    const search = this.state.search.toLowerCase();
+    const searchProject = this.state.searchProject.toLowerCase();
 
-    if (!search) {
+    if (!searchProject) {
         return this.state.projects;
     }
 
     return this.state.projects.filter(project =>
-        project.name.toLowerCase().includes(search)
+        project.name.toLowerCase().includes(searchProject)
     );
 }
 
 
     setStatusFilter = (status) => {
-    this.state.statusFilter = status;
+    this.state.statusProjectFilter = status;
         };
 
     get filteredProjects() {
-    const search = (this.state.search || "").toLowerCase();
-    const status = this.state.statusFilter;
+    const searchProject = (this.state.searchProject || "").toLowerCase();
+    const status = this.state.statusProjectFilter;
     const projects = this.state.projects || [];
 
     return projects.filter(p => {
 
-        const matchSearch = (p.name || "").toLowerCase().includes(search);
+        const matchSearch = (p.name || "").toLowerCase().includes(searchProject);
 
         const matchStatus =
             status === "all" ? true : p.state === status;
@@ -188,8 +212,130 @@ class ProjectDashboard extends Component {
     return this.getProjectStats();
 }
 
+    //********************************************Projects********************************************
+
+    showTaskForm = () => {
+    this.state.taskForm = {
+        name: "",
+        description: "",
+        assigned_to: false,
+        start_date: "",
+        end_date: "",
+        state: "todo",
+        priority: "0",
+    };
+
+    this.state.taskMode = "create";
+};
+
+    hideTaskForm=()=>{
+        this.state.taskMode = null;
+    }
 
 
+    saveTask = async () => {
+    const data = {
+        project_id: this.state.projectForm.id,
+        name: this.state.taskForm.name,
+        description: this.state.taskForm.description,
+        assigned_to: this.state.taskForm.assigned_to
+        ? parseInt(this.state.taskForm.assigned_to)
+        : false,
+        start_date: this.state.taskForm.start_date,
+        end_date: this.state.taskForm.end_date,
+        state: this.state.taskForm.state,
+        priority: this.state.taskForm.priority,
+    };
+
+    if (this.state.taskMode === "create") {
+        await this.orm.create("society.task", [data]);
+    } else {
+        await this.orm.write(
+            "society.task",
+            [this.state.taskForm.id],
+            data
+        );
+    }
+
+    // refresh
+      // 🔥 recharger uniquement les tasks du projet courant
+    this.state.tasks = await this.orm.searchRead(
+        "society.task",
+        [["project_id", "=", this.state.projectForm.id]],
+        ["id", "name", "description", "state", "assigned_to", "start_date", "end_date", "priority"]
+    );
+
+    this.state.taskMode = null;
+};
+
+    editTask = (ev) => {
+    const id = parseInt(ev.currentTarget.dataset.id);
+
+    const task = this.state.tasks.find(p => p.id === id);
+
+    //  remplir le formulaire
+    this.state.taskForm = {
+        id: task.id,
+        name: task.name,
+        description: task.description,
+        assigned_to: task.manager_id ? task.assigned_to[0] : false,
+        start_date: task.start_date || "",
+        end_date: task.end_date || "",
+        state: task.state,
+        priority: task.priority||"0",
+    };
+
+    //  ouvrir le form en mode edit
+    this.state.taskMode = "edit";
+};
+
+    deleteTask = async (ev) => {
+    const id = parseInt(ev.currentTarget.dataset.id);
+
+    await this.orm.unlink("society.task", [id]);
+
+    // refresh tasks du projet actuel (IMPORTANT)
+    this.state.tasks = this.state.tasks.filter(t => t.id !== id);
+};
+
+    get filteredTasks() {
+    const search = (this.state.searchTask || "").toLowerCase();
+    const status = this.state.taskStatusFilter;
+    const tasks = this.state.tasks || [];
+
+    return tasks.filter(t => {
+
+        const matchSearch =
+            t.name.toLowerCase().includes(search) ||
+            (t.description || "").toLowerCase().includes(search);
+
+        const matchStatus =
+            status === "all" ? true : t.state === status;
+
+        return matchSearch && matchStatus;
+    });
+}
+
+    setTaskFilter = (status) => {
+    this.state.taskStatusFilter = status;
+};
+
+    get taskStats() {
+    const tasks = this.state.tasks || [];
+
+    return tasks.reduce(
+        (acc, task) => {
+            acc.all++;
+
+            if (task.state === "todo") acc.todo++;
+            else if (task.state === "pending") acc.pending++;
+            else if (task.state === "done") acc.done++;
+
+            return acc;
+        },
+        { all: 0, todo: 0, pending: 0, done: 0 }
+    );
+}
 
 }
 

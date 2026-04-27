@@ -60,7 +60,7 @@
 
 
 .project_card{
-    margin: 10px;
+        margin: 12px;
     padding: 20px;
     background-color: white;
     box-shadow: 0 0 10px rgba(0,0,0,1);
@@ -72,6 +72,11 @@
     height:200px;
     word-wrap:break-word; /* retourner le text a la ligne quand il depasse la taille du div */
     overflow-wrap:break-word; /* retourner le text a la ligne quand il depasse la taille du div */
+}
+
+
+.project_card:hover {
+    transform: translateY(-5px);
 }
 
 .project_card h2{
@@ -102,6 +107,22 @@
     text-align:center;
     color:white;
 }
+
+.fa-eye .icon{
+    color:#0984e3;
+}
+
+.fa-pencil .icon{
+    color:orange;
+}
+
+.fa-trash .icon{
+    color: red;
+}
+
+
+
+
 
 .state_draft{
     background-color:#6c5ce7;
@@ -160,9 +181,9 @@
     transition: 0.3s;
 }
 
-.stat_card:hover {
-    transform: translateY(-20px);
-}
+/*.stat_card:hover {*/
+/*    transform: translateY(-20px);*/
+/*}*/
 
 /* ICON */
 .stat_card .icon {

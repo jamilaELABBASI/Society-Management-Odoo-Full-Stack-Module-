@@ -6,114 +6,140 @@
 
         <div class="filters">
 
-            <button class="create_project" >
+            <button class="create_project" t-on-click="props.showTaskForm">
                 New Task
             </button>
 
              <!-- SEARCH -->
-            <input placeholder="Search task..." />
+            <input placeholder="Search task..."  t-model="props.state.searchTask"/>
 
             <!-- FILTER STATUS -->
-            <button>All</button>
-            <button>ToDo</button>
-            <button>Pending</button>
-            <button>Done</button>
+
+            <button t-att-class="props.state.taskStatusFilter === 'all' ? 'active' : ''"
+                    t-on-click="() => props.setTaskFilter('all')">
+                All
+            </button>
+
+            <button t-att-class="props.state.taskStatusFilter === 'todo' ? 'active' : ''"
+                    t-on-click="() => props.setTaskFilter('todo')">
+                To Do
+            </button>
+
+            <button t-att-class="props.state.taskStatusFilter === 'pending' ? 'active' : ''"
+                    t-on-click="() => props.setTaskFilter('pending')">
+                Pending
+            </button>
+
+            <button t-att-class="props.state.taskStatusFilter === 'done' ? 'active' : ''"
+                    t-on-click="() => props.setTaskFilter('done')">
+                Done
+            </button>
+
 
         </div>
 
         <!-- ================= PROJECT STATS ================= -->
         <div class="stats_container">
 
-            <div class="stat_card total_tasks">
-                <div class="icon"><i class="fa fa-file-text-o"/></div>
-                <div class="info">
-                    <span class="label">All Tasks</span>
-                    <span class="number"></span>
-                </div>
-            </div>
+                    <div class="stat_card total_tasks">
+                        <div class="icon"><i class="fa fa-th"></i></div>
+                        <div class="info">
+                            <span class="label">All Tasks</span>
+                            <span class="number"><t t-esc="props.taskStats.all"/></span>
+                        </div>
+                    </div>
 
-            <div class="stat_card total_draft">
-                <div class="icon"><i class="fa fa-file-text-o"/></div>
-                <div class="info">
-                    <span class="label">ToDo</span>
-                    <span class="number"></span>
-                </div>
-            </div>
+                    <div class="stat_card total_draft">
+                        <div class="icon"><i class="fa fa-file-text-o"/></div>
+                        <div class="info">
+                            <span class="label">To Do</span>
+                            <span class="number"><t t-esc="props.taskStats.todo"/></span>
+                        </div>
+                    </div>
 
-            <div class="stat_card total_progress">
-                <div class="icon"><i class="fa fa-spinner"/></div>
-                <div class="info">
-                    <span class="label">Pending</span>
-                    <span class="number"></span>
-                </div>
-            </div>
+                    <div class="stat_card total_progress">
+                        <div class="icon"><i class="fa fa-spinner"/></div>
+                        <div class="info">
+                            <span class="label">Pending</span>
+                            <span class="number"><t t-esc="props.taskStats.pending"/></span>
+                        </div>
+                    </div>
 
-            <div class="stat_card total_done">
-                <div class="icon"><i class="fa fa-check"/></div>
-                <div class="info">
-                    <span class="label">Done</span>
-                    <span class="number"></span>
-                </div>
-            </div>
+                    <div class="stat_card total_done">
+                        <div class="icon"><i class="fa fa-check"/></div>
+                        <div class="info">
+                            <span class="label">Done</span>
+                            <span class="number"><t t-esc="props.taskStats.done"/></span>
+                        </div>
+                    </div>
 
-        </div>
-    </div>
+                </div>
+
+
+</div>
+
+
+
 
 
     <div id="body">
-
-        <t t-if="props.tasks &amp;&amp; props.tasks.length">
-
+        <t t-if="props.tasks">
             <t t-foreach="props.tasks" t-as="task" t-key="task.id">
 
-                <t t-foreach="props.tasks" t-as="task" t-key="task.id">
+    <div class="task_card">
 
-    <div id="task_card">
+        <!-- HEADER -->
+        <div class="task_header">
 
-        <!-- 🔥 PRIORITY EN HAUT -->
-        <div id="task_priority">
-            <span t-att-class="'priority_' + task.priority">
+            <!-- PRIORITY -->
+            <span t-att-class="'badge priority_' + task.priority">
                 <t t-if="task.priority == '0'">Low</t>
                 <t t-if="task.priority == '1'">Normal</t>
                 <t t-if="task.priority == '2'">High</t>
                 <t t-if="task.priority == '3'">Urgent</t>
             </span>
+
+            <!-- STATUS -->
+            <span t-att-class="'badge state_' + task.state">
+                <t t-esc="task.state"/>
+            </span>
+
         </div>
 
-        <!-- 📌 NAME -->
-        <h2 t-esc="task.name"/>
+        <!-- TITLE -->
+        <h3 class="task_title" t-esc="task.name"/>
 
-        <!-- 📄 DESCRIPTION -->
-        <div>
-            <i class="fa fa-align-left"></i>
-            <span t-esc="task.description"/>
+        <!-- DESCRIPTION -->
+        <p class="task_desc" t-esc="task.description"/>
+
+        <!-- INFO -->
+        <div class="task_info">
+
+            <div class="info_item">
+                <i class="fa fa-user"></i>
+                <span t-esc="task.assigned_to ? task.assigned_to[1] : 'No user'"/>
+            </div>
+
+            <div class="info_item">
+                <i class="fa fa-calendar"></i>
+                <span t-esc="task.start_date"/>
+            </div>
+
+            <div class="info_item">
+                <i class="fa fa-calendar-check-o"></i>
+                <span t-esc="task.end_date"/>
+            </div>
+
         </div>
 
-        <!-- 👤 EMPLOYE -->
-        <div>
-            <i class="fa fa-user"></i>
-            <span t-esc="task.assigned_to ? task.assigned_to[1] : ''"/>
-        </div>
-
-        <!-- 📅 DATES -->
-        <div>
-            <i class="fa fa-calendar"></i>
-            <span t-esc="task.start_date"/>
-        </div>
-
-        <div>
-            <i class="fa fa-calendar-check-o"></i>
-            <span t-esc="task.end_date"/>
-        </div>
-
-        <!-- ⚙️ ACTIONS -->
-        <div id="task_actions">
-            <i class="fa fa-pencil"
-               t-on-click="(ev) => props.editTask(ev)"
+        <!-- ACTIONS -->
+        <div class="task_actions">
+            <i class="fa fa-pencil action edit"
+               t-on-click="props.editTask"
                t-att-data-id="task.id"/>
 
-            <i class="fa fa-trash"
-               t-on-click="(ev) => props.deleteTask(ev)"
+            <i class="fa fa-trash action delete"
+               t-on-click="props.deleteTask"
                t-att-data-id="task.id"/>
         </div>
 
@@ -139,8 +165,6 @@
 
                 </div> -->
 
-            </t>
-
         </t>
 
         <t t-else="">
@@ -151,98 +175,20 @@
 
 
 
-<!--
-    <div class="header">
-        <button >
-            New Task
-        </button>
-    </div>
-
-    <div class="stats_container">
-
-        <div class="stat_card total_draft">
-            <div class="icon"><i class="fa fa-file-text-o"></i></div>
-            <div class="info">
-                <span class="label">Draft</span>
-                <span class="number">
-                    <t t-esc="props.statsTask.draft"/>
-                </span>
-            </div>
-        </div>
-
-        <div class="stat_card total_progress">
-            <div class="icon"><i class="fa fa-spinner"></i></div>
-            <div class="info">
-                <span class="label">In Progress</span>
-                <span class="number">
-                    <t t-esc="props.statsTask.progress"/>
-                </span>
-            </div>
-        </div>
-
-        <div class="stat_card total_done">
-            <div class="icon"><i class="fa fa-check"></i></div>
-            <div class="info">
-                <span class="label">Done</span>
-                <span class="number">
-                    <t t-esc="props.statsTask.done"/>
-                </span>
-            </div>
-        </div>
-
-    </div>
-
-     ================= TASK LIST =================
-    <div>
-
-        <t t-if="props.tasks &amp;&amp; props.tasks.length">
-
-            <t t-foreach="props.tasks" t-as="task" t-key="task.id">
-
-                <div class="task_card">
-
-                    <h3 t-esc="task.name"/>
-                    <p t-esc="task.description"/>
-
-                    <div class="task_actions">
-
-                        <i class="fa fa-pencil icon"
-                           t-att-data-id="task.id"
-                        />
-
-                        <i class="fa fa-trash icon"
-                           t-att-data-id="task.id"/>
-
-                    </div>
-
-                </div>
-
-            </t>
-
-        </t>
-
-        <t t-else="">
-            <p>No tasks found</p>
-        </t>
-
-    </div>
-
--->
 
 
 
-
-<!--            showTaskForm.bind="props.showTaskForm"-->
 <!--            editTask.bind="props.editTask"-->
 <!--            deleteTask.bind="props.deleteTask"-->
 
-<!--        <t t-if="props.state.taskMode == 'create' || props.state.taskMode == 'edit'">-->
-<!--            <TaskForm-->
-<!--                state="props.state"-->
-<!--                saveTask.bind="props.saveTask"-->
-<!--                closeTaskForm.bind="props.closeTaskForm"-->
-<!--            />-->
-<!--        </t>-->
+        <t t-if="props.state.taskMode == 'create' || props.state.taskMode == 'edit'">
+            <TaskForm
+                state="props.state"
+                showTaskForm.bind="props.showTaskForm"
+                hideTaskForm.bind="props.hideTaskForm"
+                saveTask.bind="props.saveTask"
+            />
+        </t>
 
 <!--    </div>-->
 </t>

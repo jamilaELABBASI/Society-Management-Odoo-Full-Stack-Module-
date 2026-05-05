@@ -2,7 +2,7 @@
     'name': 'Society Management',
     'author': 'Jamila EL ABBASI',
     'version': '1.0',
-    'category': 'society management',
+    'category': 'Jamila EL ABBASI',
     'depends': ['base','mail'],
     'data': [
         'security/groups.xml',
